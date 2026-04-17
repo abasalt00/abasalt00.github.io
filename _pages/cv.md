@@ -7,58 +7,56 @@ redirect_from:
   - /resume
 ---
 
-{% include base_path %}
+## Summary
 
-Education
-======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+Physics PhD with deep expertise in hardware engineering, quantum sensing, and neural interface development. I build miniaturized instruments from concept to deployment — PCB design, embedded systems, optical setups, signal processing, and full-stack software. Co-founder of a NASA-funded deep tech startup.
 
-Work experience
-======
-* Spring 2024: Academic Pages Collaborator
-  * GitHub University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
+---
 
-* Fall 2015: Research Assistant
-  * GitHub University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+## Experience
 
-* Summer 2015: Research Assistant
-  * GitHub University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
-  
-Skills
-======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+**Neuroengineer · UCLA Health** *(Apr 2024 – Present · Los Angeles, CA)*
+- Developing miniaturized, high-density electrophysiology systems for in vivo neural recordings
+- Custom hardware design with multimodal sensor integration (ephys + IMU + camera)
+- Signal processing pipelines for freely moving animal studies
 
-Publications
-======
-  <ul>{% for post in site.publications reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Talks
-======
-  <ul>{% for post in site.talks reversed %}
-    {% include archive-single-talk-cv.html  %}
-  {% endfor %}</ul>
-  
-Teaching
-======
-  <ul>{% for post in site.teaching reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
+**Quantum Engineer · UCLA** *(Sep 2022 – Mar 2024 · Los Angeles, CA)*
+- Multi-color lattice-light sheet microscopy development
+- Investigated weak magnetic field effects at the biological scale
+- Explored therapeutic applications in biomedical research
+
+**Research Assistant · InCor HCFMUSP** *(Mar 2022 – Aug 2022 · São Paulo, Brazil)*
+- Studied weak magnetic field effects on artery smooth muscle cells
+- Designed automated custom electromagnetic coils for controlled experiments
+
+---
+
+## Education
+
+**PhD, Physics** · Johannes Gutenberg University Mainz, Germany *(2016–2020)*
+
+**Researcher, Physics** · Okinawa Institute of Science and Technology, Japan *(2015–2016)*
+
+---
+
+## Skills
+
+**Hardware:** PCB design (KiCad), CAD (Autodesk), 6-layer board layout, signal integrity, impedance matching, embedded systems, fabrication & prototyping, optical systems, cryogenic setups
+
+**Software:** Python, C, C++, Prolog, real-time signal processing, full-stack web development
+
+**Languages:** Azerbaijani (Native), English (Fluent), German, Persian, Japanese
+
+---
+
+## Awards
+
+- Best Poster Award — IBMD Research Week, Sydney (2023)
+- Internship Scholarship — Japanese Society for the Promotion of Science (2015)
+
+---
+
+## Publications
+
+7 peer-reviewed publications in quantum sensing, biophysics, and neuroengineering.  
+See [Publications page](/publications/) for full list.
