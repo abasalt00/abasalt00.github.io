@@ -1,664 +1,818 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sample Data Processor</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abasalt Bahrami, PhD — Hardware Engineer · Neuroengineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0d0d0d;
+  --white: #fafaf8;
+  --cream: #f4f3ef;
+  --gray-light: #e8e6e0;
+  --gray-mid: #9a9690;
+  --gray-dark: #4a4843;
+  --accent: #c8a96e;
+  --accent-dark: #a8893e;
+}
 
-    :root {
-      --bg:        #06080f;
-      --surface:   rgba(255,255,255,0.04);
-      --surface2:  rgba(255,255,255,0.07);
-      --border:    rgba(255,255,255,0.10);
-      --border2:   rgba(255,255,255,0.18);
-      --cyan:      #00e5ff;
-      --cyan2:     #00b4cc;
-      --purple:    #a855f7;
-      --green:     #22c55e;
-      --amber:     #f59e0b;
-      --red:       #f87171;
-      --text:      #f1f5f9;
-      --text2:     #94a3b8;
-      --mono:      'JetBrains Mono', monospace;
-      --sans:      'Bricolage Grotesque', sans-serif;
-    }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; }
 
-    body {
-      font-family: var(--sans);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--black);
+  overflow-x: hidden;
+}
 
-    /* ── ANIMATED BACKGROUND ─────────────────────── */
-    .bg-orbs {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      overflow: hidden;
-    }
-    .orb {
-      position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.18;
-    }
-    .orb-1 { width: 600px; height: 600px; background: var(--cyan);   top: -200px; left: -200px; animation: drift1 18s ease-in-out infinite alternate; }
-    .orb-2 { width: 500px; height: 500px; background: var(--purple); bottom: -150px; right: -100px; animation: drift2 22s ease-in-out infinite alternate; }
-    .orb-3 { width: 300px; height: 300px; background: #3b82f6; top: 40%; left: 50%; transform: translate(-50%,-50%); animation: drift3 14s ease-in-out infinite alternate; }
-    @keyframes drift1 { 0%{transform:translate(0,0)} 100%{transform:translate(80px,60px)} }
-    @keyframes drift2 { 0%{transform:translate(0,0)} 100%{transform:translate(-60px,-80px)} }
-    @keyframes drift3 { 0%{transform:translate(-50%,-50%) scale(1)} 100%{transform:translate(-50%,-50%) scale(1.4)} }
+/* ── CURSOR ── */
+* { cursor: default; }
+a { cursor: pointer; }
 
-    /* ── HEADER ──────────────────────────────────── */
-    header {
-      position: sticky; top: 0; z-index: 100;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      background: rgba(6,8,15,0.8);
-      padding: 0 48px; height: 64px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .logo {
-      display: flex; align-items: center; gap: 12px;
-      font-size: 16px; font-weight: 700; letter-spacing: -0.02em;
-    }
-    .logo-mark {
-      width: 32px; height: 32px; border-radius: 9px;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; box-shadow: 0 0 20px rgba(0,229,255,0.3);
-    }
-    .live-pill {
-      display: flex; align-items: center; gap: 7px;
-      border: 1px solid rgba(34,197,94,0.3);
-      border-radius: 20px; padding: 5px 13px;
-      background: rgba(34,197,94,0.07);
-    }
-    .live-dot {
-      width: 6px; height: 6px; border-radius: 50%; background: var(--green);
-      animation: livepulse 2s infinite;
-    }
-    @keyframes livepulse { 0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.5)} 50%{box-shadow:0 0 0 7px rgba(34,197,94,0)} }
-    .live-text { font-family: var(--mono); font-size: 11px; color: var(--green); letter-spacing: 0.06em; }
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background: rgba(13,13,13,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(200,169,110,0.15);
+}
 
-    /* ── MAIN ────────────────────────────────────── */
-    .wrap {
-      position: relative; z-index: 1;
-      max-width: 960px; margin: 0 auto;
-      padding: 48px 24px 80px;
-      display: flex; flex-direction: column; gap: 32px;
-    }
+.nav-logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78em;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
 
-    /* ── PAGE TITLE ──────────────────────────────── */
-    .page-title {
-      text-align: center;
-      padding: 8px 0 16px;
-    }
-    .page-title h1 {
-      font-size: clamp(40px, 6vw, 64px);
-      font-weight: 800; letter-spacing: -0.03em;
-      line-height: 1.05; margin-bottom: 14px;
-      background: linear-gradient(135deg, #ffffff 30%, var(--cyan) 70%, var(--purple) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .page-title p {
-      font-size: 16px; font-weight: 400; color: var(--text2);
-      max-width: 480px; margin: 0 auto; line-height: 1.6;
-    }
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
 
-    /* ── GLASS CARD ──────────────────────────────── */
-    .glass {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      padding: 32px;
-      position: relative; overflow: hidden;
-    }
-    .glass::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-    }
+.nav-links a {
+  font-size: 0.78em;
+  color: #888;
+  text-decoration: none;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: color 0.2s;
+}
 
-    .section-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: var(--mono); font-size: 11px; font-weight: 500;
-      text-transform: uppercase; letter-spacing: 0.12em;
-      color: var(--cyan); margin-bottom: 22px;
-    }
-    .section-tag::before {
-      content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--cyan);
-    }
+.nav-links a:hover { color: var(--accent); }
 
-    /* ── DROP ZONE ───────────────────────────────── */
-    #drop-zone {
-      border: 1.5px dashed rgba(255,255,255,0.15);
-      border-radius: 16px; padding: 72px 32px;
-      text-align: center; cursor: pointer;
-      transition: all 0.3s ease;
-      background: rgba(255,255,255,0.02);
-      position: relative; overflow: hidden;
-    }
-    #drop-zone::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 100%, rgba(0,229,255,0.08) 0%, transparent 60%);
-      opacity: 0; transition: opacity 0.3s;
-    }
-    #drop-zone:hover, #drop-zone.hover {
-      border-color: var(--cyan);
-      background: rgba(0,229,255,0.04);
-      transform: translateY(-3px);
-      box-shadow: 0 20px 60px rgba(0,229,255,0.08), inset 0 1px 0 rgba(0,229,255,0.1);
-    }
-    #drop-zone:hover::after, #drop-zone.hover::after { opacity: 1; }
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--black);
+  position: relative;
+  overflow: hidden;
+}
 
-    .dz-rings {
-      width: 80px; height: 80px; position: relative; margin: 0 auto 24px;
-    }
-    .dz-ring {
-      position: absolute; inset: 0; border-radius: 50%;
-      border: 1.5px solid rgba(0,229,255,0.3);
-      animation: ringpulse 2.5s ease-out infinite;
-    }
-    .dz-ring:nth-child(2) { animation-delay: 0.5s; }
-    .dz-ring:nth-child(3) { animation-delay: 1s; }
-    @keyframes ringpulse { 0%{transform:scale(0.7);opacity:0.8} 100%{transform:scale(1.4);opacity:0} }
-    .dz-inner {
-      position: absolute; inset: 15px; border-radius: 50%;
-      background: linear-gradient(135deg, rgba(0,229,255,0.2), rgba(168,85,247,0.2));
-      border: 1.5px solid rgba(0,229,255,0.4);
-      display: flex; align-items: center; justify-content: center; font-size: 24px;
-    }
-    .dz-title {
-      font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
-      margin-bottom: 8px; color: #fff;
-    }
-    .dz-sub { font-size: 14px; color: var(--text2); }
-    .dz-sub b { color: var(--cyan); font-weight: 500; cursor: pointer; }
-    .dz-sub b:hover { text-decoration: underline; }
-    .dz-badge {
-      display: inline-block; margin-top: 18px;
-      font-family: var(--mono); font-size: 12px;
-      background: rgba(0,229,255,0.1); color: var(--cyan);
-      border: 1px solid rgba(0,229,255,0.2);
-      padding: 4px 12px; border-radius: 6px; letter-spacing: 0.06em;
-    }
-    #file-input { display: none; }
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(200,169,110,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
 
-    /* ── PROGRESS ────────────────────────────────── */
-    #progress-section { display: none; }
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 80px 80px 80px;
+  position: relative;
+}
 
-    .prog-head {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 12px;
-    }
-    .prog-title { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
-    .prog-badge {
-      font-family: var(--mono); font-size: 14px; font-weight: 500;
-      color: var(--cyan); background: rgba(0,229,255,0.1);
-      border: 1px solid rgba(0,229,255,0.2); padding: 4px 14px; border-radius: 20px;
-    }
-    .prog-track {
-      height: 4px; background: rgba(255,255,255,0.08); border-radius: 4px;
-      overflow: hidden; margin-bottom: 28px;
-    }
-    .prog-fill {
-      height: 100%; width: 0%; border-radius: 4px;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      transition: width 0.6s ease; position: relative;
-    }
-    .prog-fill::after {
-      content: ''; position: absolute; right: -2px; top: -3px; bottom: -3px; width: 10px;
-      background: white; border-radius: 50%; opacity: 0.8;
-      box-shadow: 0 0 12px var(--cyan);
-    }
+.hero-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72em;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
 
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3em, 5vw, 5em);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s forwards;
+}
 
-    .steps-grid { display: flex; flex-direction: column; gap: 8px; }
-    .step {
-      display: flex; align-items: center; gap: 10px;
-      padding: 11px 14px; border-radius: 10px; font-size: 13px; font-weight: 400;
-      color: var(--text2); border: 1px solid transparent;
-      transition: all 0.25s;
-    }
-    .step.active {
-      background: rgba(0,229,255,0.07); border-color: rgba(0,229,255,0.2);
-      color: var(--cyan); font-weight: 500;
-    }
-    .step.done { color: var(--green); }
-    .step-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: rgba(255,255,255,0.2); flex-shrink: 0; transition: all 0.25s;
-    }
-    .step.active .step-dot { background: var(--cyan); box-shadow: 0 0 8px var(--cyan); animation: blink 1s infinite; }
-    .step.done .step-dot { background: var(--green); box-shadow: 0 0 6px var(--green); }
+.hero-name span {
+  color: var(--accent);
+  font-style: italic;
+}
 
-    /* ── DONE ────────────────────────────────────── */
-    #done-section { display: none; }
-    @keyframes riseIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-    #done-section { animation: riseIn 0.5s ease; }
+.hero-desc {
+  font-size: 1em;
+  color: #888;
+  line-height: 1.8;
+  max-width: 440px;
+  margin-bottom: 48px;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s forwards;
+}
 
-    .done-band {
-      background: linear-gradient(135deg, rgba(34,197,94,0.12), rgba(0,229,255,0.08));
-      border: 1px solid rgba(34,197,94,0.25);
-      border-radius: 14px; padding: 22px 26px;
-      display: flex; align-items: center; gap: 18px;
-      margin-bottom: 18px;
-    }
-    .done-badge {
-      width: 48px; height: 48px; flex-shrink: 0; border-radius: 14px;
-      background: rgba(34,197,94,0.2); border: 1px solid rgba(34,197,94,0.4);
-      display: flex; align-items: center; justify-content: center; font-size: 22px;
-      box-shadow: 0 0 24px rgba(34,197,94,0.2);
-    }
-    .done-t { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
-    .done-s { font-family: var(--mono); font-size: 12px; color: var(--text2); margin-top: 4px; }
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s forwards;
+}
 
-    #dl-btn {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%; padding: 17px 28px;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      color: #000; text-decoration: none; border-radius: 13px;
-      font-size: 16px; font-weight: 700; letter-spacing: -0.01em;
-      box-shadow: 0 8px 32px rgba(0,229,255,0.25);
-      transition: all 0.2s; cursor: pointer;
-    }
-    #dl-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,229,255,0.35); }
-    .dl-fname { font-family: var(--mono); font-size: 11px; color: var(--text2); text-align: center; margin-top: 10px; }
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--accent);
+  color: var(--black);
+  font-size: 0.82em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s;
+}
 
-    #error-sec {
-      display: none; background: rgba(248,113,113,0.08);
-      border: 1px solid rgba(248,113,113,0.25); border-radius: 11px;
-      padding: 14px 18px; font-size: 13px; color: var(--red);
-    }
+.btn-primary:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+}
 
-    /* ── ID STRUCTURE ────────────────────────────── */
-    .id-hero {
-      border-radius: 14px; padding: 22px 26px;
-      background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.08);
-      margin-bottom: 26px; text-align: center; position: relative; overflow: hidden;
-    }
-    .id-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(0,229,255,0.04) 0%, rgba(168,85,247,0.04) 100%);
-    }
-    .id-hero-label {
-      font-family: var(--mono); font-size: 10px; font-weight: 500;
-      text-transform: uppercase; letter-spacing: 0.14em; color: var(--text2);
-      margin-bottom: 12px; position: relative;
-    }
-    .id-hero-val {
-      font-family: var(--mono); font-size: 16px; font-weight: 500;
-      line-height: 2.2; position: relative; word-break: break-all;
-    }
-    .c-pid { color: #fbbf24; }
-    .c-sid { color: #34d399; }
-    .c-bid { color: #60a5fa; }
-    .c-sep { color: rgba(255,255,255,0.2); margin: 0 10px; }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #888;
+  font-size: 0.82em;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s;
+}
 
-    .id-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
-    .id-card {
-      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-      border-radius: 14px; padding: 18px;
-      transition: all 0.2s;
-    }
-    .id-card:hover {
-      background: rgba(255,255,255,0.06); border-color: var(--border2);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    }
-    .id-card-label {
-      font-size: 11px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.1em; color: var(--text2); margin-bottom: 6px;
-    }
-    .id-card-pat {
-      font-family: var(--mono); font-size: 12px;
-      padding: 5px 9px; border-radius: 6px; display: inline-block;
-      margin-bottom: 13px; font-weight: 500;
-    }
-    .id-card:nth-child(1) .id-card-pat { background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
-    .id-card:nth-child(2) .id-card-pat { background: rgba(52,211,153,0.1); color: #34d399; border: 1px solid rgba(52,211,153,0.2); }
-    .id-card:nth-child(3) .id-card-pat { background: rgba(96,165,250,0.1); color: #60a5fa; border: 1px solid rgba(96,165,250,0.2); }
-    .id-card:nth-child(4) .id-card-pat { background: rgba(168,85,247,0.1); color: #c084fc; border: 1px solid rgba(168,85,247,0.2); }
-    .id-rows { display: flex; flex-direction: column; gap: 5px; }
-    .id-row { display: flex; align-items: flex-start; gap: 7px; font-size: 12px; }
-    .ik {
-      font-family: var(--mono); font-size: 10px; font-weight: 500;
-      background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7);
-      padding: 1px 6px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; margin-top: 2px;
-    }
-    .iv { color: var(--text2); line-height: 1.5; }
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
 
-    /* ── SUMMARY ─────────────────────────────────── */
-    .sum-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 12px; }
-    .sum-card {
-      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-      border-radius: 13px; padding: 18px 14px;
-      transition: all 0.2s; position: relative; overflow: hidden;
-    }
-    .sum-card::after {
-      content: ''; position: absolute; inset: 0; opacity: 0.04;
-      background: var(--card-color, white); transition: opacity 0.2s;
-    }
-    .sum-card:hover { transform: translateY(-3px); border-color: var(--border2); }
-    .sum-card:hover::after { opacity: 0.08; }
-    .sum-card.c-sky   { --card-color: var(--cyan); border-top: 2px solid var(--cyan); }
-    .sum-card.c-green { --card-color: var(--green); border-top: 2px solid var(--green); }
-    .sum-card.c-amber { --card-color: var(--amber); border-top: 2px solid var(--amber); }
-    .sum-card.c-red   { --card-color: var(--red); border-top: 2px solid var(--red); }
+.hero-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 120px 80px 80px 40px;
+  opacity: 0;
+  animation: fadeIn 1.2s 0.5s forwards;
+}
 
-    .sum-lbl {
-      font-family: var(--mono); font-size: 9px; font-weight: 500;
-      text-transform: uppercase; letter-spacing: 0.1em; color: var(--text2);
-      margin-bottom: 10px; position: relative;
-    }
-    .sum-val {
-      font-size: 28px; font-weight: 700; letter-spacing: -0.03em;
-      line-height: 1; margin-bottom: 6px; position: relative;
-    }
-    .sum-val.sky   { color: var(--cyan); text-shadow: 0 0 20px rgba(0,229,255,0.4); }
-    .sum-val.green { color: var(--green); text-shadow: 0 0 20px rgba(34,197,94,0.4); }
-    .sum-val.amber { color: var(--amber); text-shadow: 0 0 20px rgba(245,158,11,0.4); }
-    .sum-val.red   { color: var(--red); text-shadow: 0 0 20px rgba(248,113,113,0.4); }
-    .sum-desc { font-size: 11px; color: var(--text2); position: relative; }
+.hero-photo-frame {
+  position: relative;
+  width: 320px;
+  height: 400px;
+}
 
-    .sum-empty {
-      text-align: center; padding: 36px; color: var(--text2); font-size: 14px;
-      border: 1px dashed rgba(255,255,255,0.1); border-radius: 12px;
-    }
+.hero-photo-bg {
+  position: absolute;
+  top: 20px; right: -20px;
+  width: 100%; height: 100%;
+  border: 1px solid rgba(200,169,110,0.3);
+}
 
-    /* ── FOOTER ──────────────────────────────────── */
-    footer {
-      position: relative; z-index: 1;
-      text-align: center; padding: 0 0 48px;
-      font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.2);
-      letter-spacing: 0.08em;
-    }
+.hero-photo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(20%);
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    @media (max-width: 750px) {
-      .id-grid { grid-template-columns: repeat(2,1fr); }
-      .sum-grid { grid-template-columns: repeat(3,1fr); }
-      .steps-grid { grid-template-columns: 1fr; }
-      header { padding: 0 20px; }
-    }
-    @media (max-width: 460px) {
-      .sum-grid { grid-template-columns: repeat(2,1fr); }
-      .page-title h1 { font-size: 36px; }
-    }
-  </style>
+.hero-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 5em;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.hero-stats {
+  position: absolute;
+  bottom: -20px;
+  left: -40px;
+  background: var(--accent);
+  padding: 20px 24px;
+  display: flex;
+  gap: 32px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6em;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.65em;
+  font-weight: 600;
+  color: var(--black);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+/* ── ABOUT ── */
+.section {
+  padding: 120px 80px;
+}
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7em;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-label::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2em, 3.5vw, 3em);
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  margin-bottom: 32px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 80px;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-text p {
+  font-size: 1.05em;
+  color: var(--gray-dark);
+  line-height: 1.85;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.about-text p strong {
+  color: var(--black);
+  font-weight: 500;
+}
+
+.about-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about-card {
+  background: var(--black);
+  padding: 24px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.about-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--accent);
+}
+
+.about-card:hover { transform: translateX(4px); }
+
+.about-card-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72em;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.about-card-text {
+  font-size: 0.88em;
+  color: #888;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ── WORK ── */
+.work-section {
+  background: var(--black);
+  padding: 120px 80px;
+}
+
+.work-section .section-title {
+  color: var(--white);
+}
+
+.work-section .section-label {
+  color: var(--accent);
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  margin-top: 60px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.work-card {
+  background: #111;
+  padding: 48px 44px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+  text-decoration: none;
+  display: block;
+}
+
+.work-card:hover { background: #161616; }
+
+.work-card::after {
+  content: '↗';
+  position: absolute;
+  top: 32px; right: 32px;
+  color: var(--accent);
+  font-size: 1.2em;
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: all 0.2s;
+}
+
+.work-card:hover::after {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.work-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65em;
+  color: #444;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.work-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35em;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+
+.work-desc {
+  font-size: 0.85em;
+  color: #666;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.work-tag {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 4px 12px;
+  border: 1px solid #333;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65em;
+  color: #555;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.work-card:hover .work-tag {
+  border-color: rgba(200,169,110,0.3);
+  color: var(--accent);
+}
+
+/* ── STACK ── */
+.stack-section {
+  padding: 120px 80px;
+  background: var(--cream);
+}
+
+.stack-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.stack-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 60px;
+}
+
+.stack-tag {
+  padding: 8px 18px;
+  background: var(--white);
+  border: 1px solid var(--gray-light);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72em;
+  color: var(--gray-dark);
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+
+.stack-tag:hover {
+  border-color: var(--accent);
+  color: var(--accent-dark);
+  background: var(--cream);
+}
+
+.stack-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.stack-cat-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68em;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* ── CONTACT ── */
+.contact-section {
+  background: var(--black);
+  padding: 120px 80px;
+  text-align: center;
+}
+
+.contact-section .section-label {
+  justify-content: center;
+}
+
+.contact-section .section-label::after { display: none; }
+.contact-section .section-label::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.contact-section .section-title {
+  color: var(--white);
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+
+.contact-sub {
+  color: #666;
+  font-size: 0.95em;
+  margin-bottom: 48px;
+  font-weight: 300;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border: 1px solid #333;
+  color: #888;
+  font-size: 0.82em;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: 'DM Mono', monospace;
+  transition: all 0.2s;
+}
+
+.contact-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── FOOTER ── */
+footer {
+  background: #080808;
+  padding: 28px 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #1a1a1a;
+}
+
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7em;
+  color: #444;
+  letter-spacing: 1px;
+}
+
+.footer-loc {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7em;
+  color: #444;
+  letter-spacing: 1px;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .nav-links { gap: 24px; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-left { padding: 120px 40px 80px; }
+  .section { padding: 80px 32px; }
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .work-section { padding: 80px 32px; }
+  .work-grid { grid-template-columns: 1fr; }
+  .stack-section { padding: 80px 32px; }
+  .stack-inner { grid-template-columns: 1fr; gap: 48px; }
+  .contact-section { padding: 80px 32px; }
+  footer { padding: 24px 32px; flex-direction: column; gap: 8px; }
+}
+</style>
 </head>
 <body>
 
-  <!-- AMBIENT ORBS -->
-  <div class="bg-orbs">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">AB</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">PhD · Physics · UCLA Health</div>
+    <h1 class="hero-name">
+      Abasalt<br>
+      <span>Bahrami</span>
+    </h1>
+    <p class="hero-desc">
+      Hardware engineer building at the edge of neuroscience and biomedical technology. 
+      I take ideas from concept to working instrument — end to end.
+    </p>
+    <div class="hero-cta">
+      <a href="#work" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-secondary">Get in Touch</a>
+    </div>
   </div>
-
-  <!-- HEADER -->
-  <header>
-    <div class="logo">
-      <div class="logo-mark">🧬</div>
-      Sample Data Processor
-    </div>
-    <div class="live-pill">
-      <div class="live-dot"></div>
-      <span class="live-text">live</span>
-    </div>
-  </header>
-
-  <div class="wrap">
-
-    <!-- TITLE -->
-    <div class="page-title">
-      <p>Upload your Excel spreadsheet and every Patient ID, Sample ID, Box ID, and Full ID is automatically assigned, validated, and corrected.</p>
-    </div>
-
-    <!-- 01 UPLOAD -->
-    <div class="glass">
-      <div class="section-tag">01 &nbsp; Upload</div>
-
-      <div id="upload-section">
-        <div id="drop-zone">
-          <div class="dz-rings">
-            <div class="dz-ring"></div>
-            <div class="dz-ring"></div>
-            <div class="dz-ring"></div>
-            <div class="dz-inner">📂</div>
-          </div>
-          <div class="dz-title">Drop your spreadsheet here</div>
-          <div class="dz-sub">or <b id="browse-lnk">browse your computer</b></div>
-          <div class="dz-badge">.xlsx</div>
-          <input type="file" id="file-input" accept=".xlsx">
+  <div class="hero-right">
+    <div class="hero-photo-frame">
+      <div class="hero-photo-bg"></div>
+      <div class="hero-photo-placeholder">AB</div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">7+</div>
+          <div class="stat-label">Publications</div>
         </div>
-      </div>
-
-      <div id="progress-section">
-        <div class="prog-head">
-          <span class="prog-title">Running pipeline</span>
-          <span class="prog-badge" id="timer-display">0s</span>
+        <div class="stat-item">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Countries</div>
         </div>
-        <div class="prog-track"><div class="prog-fill" id="progress-bar"></div></div>
-        <div class="steps-grid">
-          <div class="step" id="step-upload"><div class="step-dot"></div>Uploading file</div>
-          <div class="step" id="step-reset"><div class="step-dot"></div>Resetting formatting</div>
-          <div class="step" id="step-ids"><div class="step-dot"></div>Generating IDs</div>
-          <div class="step" id="step-validate"><div class="step-dot"></div>Validating &amp; flagging</div>
-          <div class="step" id="step-correct"><div class="step-dot"></div>Building corrected sheet</div>
-          <div class="step" id="step-save"><div class="step-dot"></div>Saving output</div>
-        </div>
-      </div>
-
-      <div id="done-section">
-        <div class="done-band">
-          <div class="done-badge">✓</div>
-          <div>
-            <div class="done-t">Pipeline complete</div>
-            <div class="done-s" id="done-sub">—</div>
-          </div>
-        </div>
-        <a id="dl-btn">⬇ &nbsp;Download Output File</a>
-        <div class="dl-fname" id="dl-fname"></div>
-      </div>
-
-      <div id="error-sec"><strong>Error:</strong> <span id="error-msg"></span></div>
-    </div>
-
-    <!-- 02 ID STRUCTURE -->
-    <div class="glass">
-      <div class="section-tag">02 &nbsp; ID Structure Reference</div>
-
-      <div class="id-hero">
-        <div class="id-hero-label">Complete Full ID Example</div>
-        <div class="id-hero-val">
-          <span class="c-pid">25-000123</span>
-          <span class="c-sep">—</span>
-          <span class="c-sid">1A1-FBT01-00-01</span>
-          <span class="c-sep">—</span>
-          <span class="c-bid">DA01-01-05</span>
-        </div>
-      </div>
-
-      <div class="id-grid">
-        <div class="id-card">
-          <div class="id-card-label">Patient ID</div>
-          <div class="id-card-pat">YY-NNNNNN</div>
-          <div class="id-rows">
-            <div class="id-row"><span class="ik">YY</span><span class="iv">2-digit year of oldest sample</span></div>
-            <div class="id-row"><span class="ik">NNNNNN</span><span class="iv">Sequential patient number</span></div>
-          </div>
-        </div>
-        <div class="id-card">
-          <div class="id-card-label">Sample ID</div>
-          <div class="id-card-pat">PPSS-TTnn-AA-LL</div>
-          <div class="id-rows">
-            <div class="id-row"><span class="ik">PP</span><span class="iv">Project number</span></div>
-            <div class="id-row"><span class="ik">SS</span><span class="iv">Site code (e.g. A1, E1)</span></div>
-            <div class="id-row"><span class="ik">TT</span><span class="iv">Sample type (FBT, CSF…)</span></div>
-            <div class="id-row"><span class="ik">nn</span><span class="iv">Sequence # per patient</span></div>
-            <div class="id-row"><span class="ik">AA</span><span class="iv">Additive · <span class="ik" style="display:inline">LL</span> Aliquot</span></div>
-          </div>
-        </div>
-        <div class="id-card">
-          <div class="id-card-label">Box ID</div>
-          <div class="id-card-pat">FSRR-bb-pp</div>
-          <div class="id-rows">
-            <div class="id-row"><span class="ik">F</span><span class="iv">Freezer (C–H)</span></div>
-            <div class="id-row"><span class="ik">S</span><span class="iv">Shelf (A–D)</span></div>
-            <div class="id-row"><span class="ik">RR</span><span class="iv">Rack (01–03)</span></div>
-            <div class="id-row"><span class="ik">bb</span><span class="iv">Box (01–16)</span></div>
-            <div class="id-row"><span class="ik">pp</span><span class="iv">Position (01–81 or 01–36)</span></div>
-          </div>
-        </div>
-        <div class="id-card">
-          <div class="id-card-label">Full ID</div>
-          <div class="id-card-pat">PID — SID — BID</div>
-          <div class="id-rows">
-            <div class="id-row"><span class="iv">Unique identifier for each physical tube. Concatenation of all three IDs joined by dashes.</span></div>
-          </div>
+        <div class="stat-item">
+          <div class="stat-num">NASA</div>
+          <div class="stat-label">Funded</div>
         </div>
       </div>
     </div>
-
-    <!-- 03 SUMMARY -->
-    <div class="glass">
-      <div class="section-tag">03 &nbsp; Run Summary</div>
-      <div id="summary-body">
-        <div class="sum-empty">Summary will appear here after processing your file</div>
-      </div>
-    </div>
-
   </div>
+</section>
 
-  <footer>SAMPLE · DATA · PROCESSOR &nbsp;·&nbsp; sample-id-generator-9fa26.web.app</footer>
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-label">About</div>
+      <h2 class="section-title">Physics-trained.<br>Hardware-obsessed.</h2>
+      <p>
+        I hold a PhD in Physics from Johannes Gutenberg University Mainz and have worked across 
+        <strong>Germany, Japan, Brazil, and the US</strong> — tackling hard problems at the edge 
+        of what's technically possible.
+      </p>
+      <p>
+        I specialize in taking a concept from idea to working instrument. That means designing 
+        the PCB, writing the firmware, building the enclosure, running the experiment, and 
+        processing the data. <strong>All of it, end to end.</strong>
+      </p>
+      <p>
+        Currently at <strong>UCLA Health</strong>, building miniaturized electrophysiology systems 
+        for freely moving animals. Co-founder of <strong>QuSpectra</strong>, a NASA SBIR-funded 
+        startup building miniaturized quantum sensors for label-free molecular detection.
+      </p>
+    </div>
+    <div class="about-cards">
+      <div class="about-card">
+        <div class="about-card-title">Current Role</div>
+        <div class="about-card-text">Neuroengineer at UCLA Health — miniaturized electrophysiology systems for in vivo neural recordings</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-title">Founder</div>
+        <div class="about-card-text">QuSpectra — NASA SBIR Phase I awarded. Quantum sensing for label-free molecular detection</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-title">Education</div>
+        <div class="about-card-text">PhD Physics, JGU Mainz · Research Fellow, OIST Japan</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-title">Recognition</div>
+        <div class="about-card-text">Best Poster — IBMD Research Week Sydney 2023 · JSPS Scholarship Japan 2015</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+<!-- WORK -->
+<section class="work-section" id="work">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="section-label">Selected Work</div>
+    <h2 class="section-title" style="color:var(--white)">Projects that<br><em style="font-style:italic; color:var(--accent)">push limits</em></h2>
+  </div>
+  <div class="work-grid">
+    <a class="work-card" href="https://github.com/abasalt00/ephys-module" target="_blank">
+      <div class="work-num">01</div>
+      <div class="work-title">Miniaturized Neural Recording System</div>
+      <div class="work-desc">1.07g PCB stack recording 32 channels of neural data + IMU + NanEye camera for freely moving mice. Designed every layer: PCB, firmware, mechanical integration.</div>
+      <span class="work-tag">Neuroengineering</span>
+    </a>
+    <a class="work-card" href="https://github.com/abasalt00/NV-quantum-sensor" target="_blank">
+      <div class="work-num">02</div>
+      <div class="work-title">QuSpectra Quantum Sensor</div>
+      <div class="work-desc">50g miniaturized quantum sensor for label-free molecular detection. NASA SBIR Phase I funded. Detects signals from samples too small for most instruments.</div>
+      <span class="work-tag">Deep Tech · NASA</span>
+    </a>
+    <a class="work-card" href="https://github.com/abasalt00/ECG-recording" target="_blank">
+      <div class="work-num">03</div>
+      <div class="work-title">ECG Recording Platform</div>
+      <div class="work-desc">Custom hardware and software for research-grade cardiac signal acquisition with real-time processing pipeline.</div>
+      <span class="work-tag">Biomedical Hardware</span>
+    </a>
+    <a class="work-card" href="https://github.com/abasalt00/job-platform" target="_blank">
+      <div class="work-num">04</div>
+      <div class="work-title">Job Platform</div>
+      <div class="work-desc">Next-generation career platform rethinking how engineers and researchers find opportunities. Full-stack web application.</div>
+      <span class="work-tag">In Development</span>
+    </a>
+  </div>
+</section>
 
-    const app = initializeApp({
-      apiKey: "AIzaSyAcAdqGoDcfef-2WJJ73r8ineT0dYgdiEw",
-      authDomain: "sample-id-generator-9fa26.firebaseapp.com",
-      projectId: "sample-id-generator-9fa26",
-      storageBucket: "sample-id-generator-9fa26.firebasestorage.app",
-    });
+<!-- STACK -->
+<section class="stack-section" id="stack">
+  <div class="stack-inner">
+    <div>
+      <div class="section-label">Expertise</div>
+      <h2 class="section-title">Hardware<br>to Software</h2>
+    </div>
+    <div class="stack-categories">
+      <div>
+        <div class="stack-cat-title">Hardware — A to Z</div>
+        <div class="stack-list">
+          <span class="stack-tag">PCB Design</span>
+          <span class="stack-tag">KiCad</span>
+          <span class="stack-tag">CAD</span>
+          <span class="stack-tag">Autodesk</span>
+          <span class="stack-tag">6-Layer Boards</span>
+          <span class="stack-tag">Signal Integrity</span>
+          <span class="stack-tag">Impedance Matching</span>
+          <span class="stack-tag">Embedded Systems</span>
+          <span class="stack-tag">Optical Systems</span>
+          <span class="stack-tag">Cryogenic Setups</span>
+          <span class="stack-tag">Fabrication</span>
+          <span class="stack-tag">Prototyping</span>
+        </div>
+      </div>
+      <div>
+        <div class="stack-cat-title">Software & Science</div>
+        <div class="stack-list">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">C</span>
+          <span class="stack-tag">C++</span>
+          <span class="stack-tag">Prolog</span>
+          <span class="stack-tag">Signal Processing</span>
+          <span class="stack-tag">Neural Interfaces</span>
+          <span class="stack-tag">Electrophysiology</span>
+          <span class="stack-tag">Full-Stack Web</span>
+          <span class="stack-tag">BCI Systems</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    const storage = getStorage(app);
-    const FN_URL  = "https://process-excel-4pd2wy4iaq-uc.a.run.app";
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-label">Contact</div>
+  <h2 class="section-title">Want to build<br>something hard?</h2>
+  <p class="contact-sub">Drop a message — the harder the problem, the better.</p>
+  <div class="contact-links">
+    <a href="https://github.com/abasalt00" target="_blank" class="contact-link">↗ GitHub</a>
+    <a href="https://linkedin.com/in/abasalt-bahrami" target="_blank" class="contact-link">↗ LinkedIn</a>
+  </div>
+</section>
 
-    const dropZone  = document.getElementById("drop-zone");
-    const fileInput = document.getElementById("file-input");
-    const uploadSec = document.getElementById("upload-section");
-    const progSec   = document.getElementById("progress-section");
-    const doneSec   = document.getElementById("done-section");
-    const errorSec  = document.getElementById("error-sec");
-    const timerDisp = document.getElementById("timer-display");
-    const progBar   = document.getElementById("progress-bar");
-    const dlBtn     = document.getElementById("dl-btn");
-    const sumBody   = document.getElementById("summary-body");
+<!-- FOOTER -->
+<footer>
+  <span class="footer-copy">© 2026 Abasalt Bahrami, PhD</span>
+  <span class="footer-loc">Los Angeles, CA · UCLA Health</span>
+</footer>
 
-    document.getElementById("browse-lnk").addEventListener("click", e => { e.stopPropagation(); fileInput.click(); });
-    dropZone.addEventListener("click",     () => fileInput.click());
-    dropZone.addEventListener("dragover",  e => { e.preventDefault(); dropZone.classList.add("hover"); });
-    dropZone.addEventListener("dragleave", () => dropZone.classList.remove("hover"));
-    dropZone.addEventListener("drop",      e => { e.preventDefault(); dropZone.classList.remove("hover"); handleFile(e.dataTransfer.files[0]); });
-    fileInput.addEventListener("change",   e => handleFile(e.target.files[0]));
-
-    function setStep(id, state) { const el = document.getElementById(id); if (el) el.className = "step " + state; }
-
-    function showError(msg) {
-      progSec.style.display   = "none";
-      errorSec.style.display  = "block";
-      uploadSec.style.display = "block";
-      document.getElementById("error-msg").textContent = msg;
-    }
-
-    function buildSummary(s) {
-      const items = [
-        { lbl:"Patient IDs", val:s.patient_ids, cls:"sky",   card:"c-sky",   desc:"newly assigned" },
-        { lbl:"Sample IDs",  val:s.sample_ids,  cls:"sky",   card:"c-sky",   desc:"newly assigned" },
-        { lbl:"Box IDs",     val:s.box_ids,     cls:"sky",   card:"c-sky",   desc:"newly assigned" },
-        { lbl:"Full IDs",    val:s.full_ids,    cls:"sky",   card:"c-sky",   desc:"newly assigned" },
-        { lbl:"Flagged",     val:s.flagged,     cls: s.flagged   > 0 ? "red"   : "green", card: s.flagged   > 0 ? "c-red"   : "c-green", desc:"errors detected" },
-        { lbl:"Corrected",   val:s.corrected,   cls: s.corrected > 0 ? "amber" : "green", card: s.corrected > 0 ? "c-amber" : "c-green", desc:"auto-fixed" },
-        { lbl:"MRNs Filled", val:s.mrn_filled,  cls:"green", card:"c-green", desc:"from existing" },
-      ];
-      sumBody.innerHTML = `<div class="sum-grid">${items.map(i=>`
-        <div class="sum-card ${i.card}">
-          <div class="sum-lbl">${i.lbl}</div>
-          <div class="sum-val ${i.cls}">${Number(i.val).toLocaleString()}</div>
-          <div class="sum-desc">${i.desc}</div>
-        </div>`).join("")}</div>`;
-    }
-
-    async function handleFile(file) {
-      if (!file || !file.name.endsWith(".xlsx")) { showError("Please upload an .xlsx file."); return; }
-
-      uploadSec.style.display = "none";
-      progSec.style.display   = "block";
-      doneSec.style.display   = "none";
-      errorSec.style.display  = "none";
-
-      const t0 = Date.now();
-      const iv = setInterval(() => {
-        const s = Math.round((Date.now()-t0)/1000);
-        timerDisp.textContent = s+"s";
-        progBar.style.width = Math.min(90,(s/120)*100)+"%";
-        if (s>=1)  setStep("step-upload",  "done");
-        if (s>=5)  setStep("step-reset",   "done");
-        if (s>=10) setStep("step-ids",     "active");
-        if (s>=60) { setStep("step-ids","done"); setStep("step-validate","active"); }
-        if (s>=90) { setStep("step-validate","done"); setStep("step-correct","active"); }
-        if (s>=110){ setStep("step-correct","done"); setStep("step-save","active"); }
-      }, 1000);
-
-      setStep("step-upload","active");
-
-      try {
-        const path = "uploads/"+Date.now()+"_"+file.name;
-        await uploadBytes(ref(storage, path), file);
-        setStep("step-upload","done"); setStep("step-reset","active");
-
-        const ctrl = new AbortController();
-        const tout = setTimeout(() => ctrl.abort(), 300000);
-        const res  = await fetch(FN_URL, {
-          method:"POST", headers:{"Content-Type":"application/json"},
-          body: JSON.stringify({input_path: path}), signal: ctrl.signal,
-        });
-        clearTimeout(tout); clearInterval(iv);
-
-        const result = await res.json();
-        if (!res.ok) throw new Error(result.error || "Processing failed");
-
-        progBar.style.width = "100%";
-        ["step-reset","step-ids","step-validate","step-correct","step-save"].forEach(s=>setStep(s,"done"));
-
-        setTimeout(() => {
-          progSec.style.display = "none";
-          doneSec.style.display = "block";
-          const elapsed = Math.round((Date.now()-t0)/1000);
-          document.getElementById("done-sub").textContent = "Completed in "+elapsed+"s  ·  "+result.filename;
-          dlBtn.href = result.download_url; dlBtn.download = result.filename;
-          document.getElementById("dl-fname").textContent = result.filename;
-          if (result.stats) buildSummary(result.stats);
-          sumBody.scrollIntoView({behavior:"smooth", block:"nearest"});
-        }, 500);
-
-      } catch(err) {
-        clearInterval(iv);
-        showError(err.name==="AbortError" ? "Timed out after 5 minutes." : err.message);
-      }
-    }
-  </script>
 </body>
 </html>
