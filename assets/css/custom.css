@@ -1,0 +1,165 @@
+/* ============================================
+   ABASALT BAHRAMI - Custom Site Styling
+   ============================================ */
+
+/* Import a modern font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Base font */
+body {
+  font-family: 'Inter', sans-serif !important;
+  background: #f8f9fa !important;
+}
+
+/* ---- MASTHEAD / NAV ---- */
+.masthead {
+  background: #0a0a0a !important;
+  border-bottom: 2px solid #00d4aa !important;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.3) !important;
+}
+
+.masthead__title a {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.5px !important;
+}
+
+.greedy-nav a {
+  color: #cccccc !important;
+  font-weight: 500 !important;
+  transition: color 0.2s !important;
+}
+
+.greedy-nav a:hover {
+  color: #00d4aa !important;
+}
+
+.greedy-nav .visible-links a:before {
+  background: #00d4aa !important;
+}
+
+/* ---- SIDEBAR ---- */
+.sidebar {
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  padding: 24px !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08) !important;
+  border: 1px solid #eaeaea !important;
+}
+
+.author__avatar img {
+  border-radius: 50% !important;
+  border: 3px solid #00d4aa !important;
+  box-shadow: 0 4px 16px rgba(0,212,170,0.3) !important;
+}
+
+.author__name {
+  color: #0a0a0a !important;
+  font-weight: 700 !important;
+  font-size: 1.1em !important;
+}
+
+.author__bio {
+  color: #555 !important;
+  font-size: 0.85em !important;
+  line-height: 1.5 !important;
+}
+
+.author__urls a {
+  color: #333 !important;
+  font-weight: 500 !important;
+  transition: color 0.2s !important;
+}
+
+.author__urls a:hover {
+  color: #00d4aa !important;
+}
+
+/* ---- MAIN CONTENT ---- */
+#main {
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  padding: 40px !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08) !important;
+  border: 1px solid #eaeaea !important;
+  margin-top: 20px !important;
+}
+
+/* Page title */
+.page__title {
+  color: #0a0a0a !important;
+  font-weight: 700 !important;
+  font-size: 1.8em !important;
+  border-bottom: 3px solid #00d4aa !important;
+  padding-bottom: 12px !important;
+  margin-bottom: 24px !important;
+}
+
+/* Headings */
+h2 {
+  color: #0a0a0a !important;
+  font-weight: 600 !important;
+  margin-top: 2em !important;
+  padding-left: 12px !important;
+  border-left: 4px solid #00d4aa !important;
+}
+
+/* Paragraphs */
+p {
+  color: #444 !important;
+  line-height: 1.8 !important;
+  font-size: 0.95em !important;
+}
+
+/* Bold text */
+strong {
+  color: #0a0a0a !important;
+  font-weight: 600 !important;
+}
+
+/* Links */
+a {
+  color: #00a884 !important;
+  text-decoration: none !important;
+  transition: color 0.2s !important;
+}
+
+a:hover {
+  color: #00d4aa !important;
+}
+
+/* ---- FOOTER ---- */
+.page__footer {
+  background: #0a0a0a !important;
+  color: #666 !important;
+  margin-top: 40px !important;
+}
+
+.page__footer-follow .social-icons .svg-inline--fa {
+  color: #00d4aa !important;
+}
+
+/* ---- PORTFOLIO CARDS ---- */
+.archive__item {
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  padding: 24px !important;
+  margin-bottom: 20px !important;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06) !important;
+  border: 1px solid #eaeaea !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.archive__item:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
+}
+
+.archive__item-title {
+  color: #0a0a0a !important;
+  font-weight: 600 !important;
+}
+
+.archive__item-excerpt {
+  color: #555 !important;
+}
