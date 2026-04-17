@@ -3,815 +3,489 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abasalt Bahrami, PhD — Hardware Engineer · Neuroengineer</title>
+<title>Abasalt Bahrami — Hardware Engineer · Neuroengineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --black: #0d0d0d;
-  --white: #fafaf8;
-  --cream: #f4f3ef;
-  --gray-light: #e8e6e0;
-  --gray-mid: #9a9690;
-  --gray-dark: #4a4843;
-  --accent: #c8a96e;
-  --accent-dark: #a8893e;
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --off-white: #f9f9f7;
+  --border: #e8e8e4;
+  --text-muted: #888884;
+  --text-secondary: #444440;
+  --accent: #0a0a0a;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--cream);
+  font-family: 'Inter', sans-serif;
+  background: var(--white);
   color: var(--black);
-  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ── CURSOR ── */
-* { cursor: default; }
-a { cursor: pointer; }
-
-/* ── NAV ── */
+/* NAV */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 60px;
+  height: 60px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 20px 60px;
-  background: rgba(13,13,13,0.96);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(200,169,110,0.15);
+  justify-content: space-between;
 }
 
-.nav-logo {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.78em;
-  color: var(--accent);
-  letter-spacing: 2px;
-  text-transform: uppercase;
+.nav-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--black);
   text-decoration: none;
+  letter-spacing: -0.2px;
 }
 
 .nav-links {
   display: flex;
-  gap: 40px;
+  gap: 36px;
   list-style: none;
 }
 
 .nav-links a {
-  font-size: 0.78em;
-  color: #888;
+  font-size: 0.8em;
+  color: var(--text-muted);
   text-decoration: none;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  font-weight: 500;
-  transition: color 0.2s;
+  font-weight: 400;
+  transition: color 0.15s;
+  letter-spacing: 0.1px;
 }
 
-.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover { color: var(--black); }
 
-/* ── HERO ── */
+/* HERO */
 .hero {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background: var(--black);
-  position: relative;
-  overflow: hidden;
+  padding: 160px 60px 100px;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--border);
 }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -200px; right: -200px;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(200,169,110,0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.hero-left {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 120px 80px 80px 80px;
-  position: relative;
-}
-
-.hero-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.72em;
-  color: var(--accent);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 28px;
+.hero-label {
+  font-size: 0.75em;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 36px;
   opacity: 0;
-  animation: fadeUp 0.8s 0.2s forwards;
+  animation: up 0.6s 0.1s ease forwards;
 }
 
-.hero-name {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(3em, 5vw, 5em);
-  font-weight: 700;
-  color: var(--white);
-  line-height: 1.05;
-  letter-spacing: -1px;
-  margin-bottom: 28px;
+.hero-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(3em, 5.5vw, 5.5em);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -2.5px;
+  color: var(--black);
+  max-width: 820px;
+  margin-bottom: 48px;
   opacity: 0;
-  animation: fadeUp 0.8s 0.4s forwards;
+  animation: up 0.6s 0.2s ease forwards;
 }
 
-.hero-name span {
-  color: var(--accent);
+.hero-title span {
+  color: var(--text-muted);
+  font-weight: 400;
   font-style: italic;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -1px;
+  font-size: 0.92em;
+}
+
+.hero-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 60px;
+  opacity: 0;
+  animation: up 0.6s 0.35s ease forwards;
 }
 
 .hero-desc {
-  font-size: 1em;
-  color: #888;
-  line-height: 1.8;
   max-width: 440px;
-  margin-bottom: 48px;
+  font-size: 1em;
+  color: var(--text-secondary);
+  line-height: 1.75;
   font-weight: 300;
-  opacity: 0;
-  animation: fadeUp 0.8s 0.6s forwards;
 }
 
-.hero-cta {
+.hero-actions {
   display: flex;
-  gap: 16px;
-  opacity: 0;
-  animation: fadeUp 0.8s 0.8s forwards;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
-.btn-primary {
+.btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
-  background: var(--accent);
-  color: var(--black);
-  font-size: 0.82em;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-
-.btn-primary:hover {
-  background: var(--accent-dark);
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
-  border: 1px solid rgba(255,255,255,0.15);
-  color: #888;
-  font-size: 0.82em;
+  gap: 6px;
+  padding: 11px 22px;
+  font-size: 0.8em;
   font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   text-decoration: none;
-  transition: all 0.2s;
+  border-radius: 6px;
+  transition: all 0.15s;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
 }
 
-.btn-secondary:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+.btn-dark {
+  background: var(--black);
+  color: var(--white);
 }
 
-.hero-right {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 120px 80px 80px 40px;
-  opacity: 0;
-  animation: fadeIn 1.2s 0.5s forwards;
-}
+.btn-dark:hover { background: #222; }
 
-.hero-photo-frame {
-  position: relative;
-  width: 320px;
-  height: 400px;
-}
-
-.hero-photo-bg {
-  position: absolute;
-  top: 20px; right: -20px;
-  width: 100%; height: 100%;
-  border: 1px solid rgba(200,169,110,0.3);
-}
-
-.hero-photo {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(20%);
-  background: #1a1a1a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero-photo-placeholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 5em;
-  color: var(--accent);
-  font-weight: 700;
-}
-
-.hero-stats {
-  position: absolute;
-  bottom: -20px;
-  left: -40px;
-  background: var(--accent);
-  padding: 20px 24px;
-  display: flex;
-  gap: 32px;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.6em;
-  font-weight: 700;
+.btn-light {
+  background: var(--off-white);
   color: var(--black);
-  line-height: 1;
+  border: 1px solid var(--border);
 }
 
-.stat-label {
-  font-size: 0.65em;
-  font-weight: 600;
-  color: var(--black);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  opacity: 0.7;
-  margin-top: 4px;
-}
+.btn-light:hover { background: #f0f0ec; }
 
-/* ── ABOUT ── */
-.section {
-  padding: 120px 80px;
+/* ABOUT */
+.about {
+  padding: 100px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 80px;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
 }
 
 .section-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.7em;
-  color: var(--accent);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  font-size: 0.72em;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+  padding-top: 4px;
 }
 
-.section-label::after {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 1px;
-  background: var(--accent);
-}
-
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2em, 3.5vw, 3em);
+.about-content h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 2em;
   font-weight: 700;
+  letter-spacing: -0.8px;
   color: var(--black);
-  line-height: 1.1;
-  letter-spacing: -0.5px;
-  margin-bottom: 32px;
+  line-height: 1.2;
+  margin-bottom: 28px;
 }
 
-.about-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 80px;
-  align-items: start;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.about-text p {
-  font-size: 1.05em;
-  color: var(--gray-dark);
-  line-height: 1.85;
-  margin-bottom: 20px;
+.about-content p {
+  font-size: 0.95em;
+  color: var(--text-secondary);
+  line-height: 1.8;
   font-weight: 300;
+  margin-bottom: 18px;
+  max-width: 620px;
 }
 
-.about-text p strong {
+.about-content p:last-child { margin-bottom: 0; }
+
+.about-content strong {
   color: var(--black);
   font-weight: 500;
 }
 
-.about-cards {
+/* PROJECTS */
+.projects {
+  padding: 100px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+}
+
+.projects-header {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 80px;
+  margin-bottom: 60px;
+  align-items: baseline;
+}
+
+.projects-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 2em;
+  font-weight: 700;
+  letter-spacing: -0.8px;
+  color: var(--black);
+}
+
+.proj-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
 }
 
-.about-card {
-  background: var(--black);
-  padding: 24px 28px;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.2s;
+.proj-item {
+  display: grid;
+  grid-template-columns: 280px 1fr auto;
+  gap: 80px;
+  align-items: center;
+  padding: 36px 0;
+  border-top: 1px solid var(--border);
+  text-decoration: none;
+  transition: background 0.15s;
+  cursor: pointer;
 }
 
-.about-card::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: var(--accent);
-}
+.proj-item:last-child { border-bottom: 1px solid var(--border); }
 
-.about-card:hover { transform: translateX(4px); }
+.proj-item:hover .proj-name { color: var(--text-muted); }
 
-.about-card-title {
-  font-family: 'DM Mono', monospace;
+.proj-num {
   font-size: 0.72em;
-  color: var(--accent);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-weight: 400;
+  letter-spacing: 0.3px;
 }
 
-.about-card-text {
-  font-size: 0.88em;
-  color: #888;
+.proj-center { min-width: 0; }
+
+.proj-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.15em;
+  font-weight: 600;
+  color: var(--black);
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+  transition: color 0.15s;
+}
+
+.proj-desc {
+  font-size: 0.82em;
+  color: var(--text-muted);
   line-height: 1.6;
   font-weight: 300;
 }
 
-/* ── WORK ── */
-.work-section {
-  background: var(--black);
-  padding: 120px 80px;
+.proj-tag {
+  font-size: 0.72em;
+  color: var(--text-muted);
+  font-weight: 400;
+  white-space: nowrap;
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  letter-spacing: 0.1px;
 }
 
-.work-section .section-title {
-  color: var(--white);
+.proj-arrow {
+  font-size: 1em;
+  color: var(--border);
+  margin-left: 20px;
+  transition: all 0.15s;
+  flex-shrink: 0;
 }
 
-.work-section .section-label {
-  color: var(--accent);
+.proj-item:hover .proj-arrow {
+  color: var(--black);
+  transform: translate(2px, -2px);
 }
 
-.work-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2px;
-  margin-top: 60px;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.work-card {
-  background: #111;
-  padding: 48px 44px;
-  position: relative;
-  overflow: hidden;
-  transition: background 0.3s;
-  text-decoration: none;
-  display: block;
-}
-
-.work-card:hover { background: #161616; }
-
-.work-card::after {
-  content: '↗';
-  position: absolute;
-  top: 32px; right: 32px;
-  color: var(--accent);
-  font-size: 1.2em;
-  opacity: 0;
-  transform: translate(-4px, 4px);
-  transition: all 0.2s;
-}
-
-.work-card:hover::after {
-  opacity: 1;
-  transform: translate(0, 0);
-}
-
-.work-num {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.65em;
-  color: #444;
-  letter-spacing: 2px;
-  margin-bottom: 20px;
-}
-
-.work-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.35em;
-  font-weight: 600;
-  color: var(--white);
-  line-height: 1.3;
-  margin-bottom: 16px;
-}
-
-.work-desc {
-  font-size: 0.85em;
-  color: #666;
-  line-height: 1.7;
-  font-weight: 300;
-}
-
-.work-tag {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 4px 12px;
-  border: 1px solid #333;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.65em;
-  color: #555;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.work-card:hover .work-tag {
-  border-color: rgba(200,169,110,0.3);
-  color: var(--accent);
-}
-
-/* ── STACK ── */
-.stack-section {
-  padding: 120px 80px;
-  background: var(--cream);
-}
-
-.stack-inner {
+/* CONTACT */
+.contact {
+  padding: 120px 60px;
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 280px 1fr;
   gap: 80px;
-  align-items: start;
+  align-items: center;
 }
 
-.stack-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 60px;
-}
-
-.stack-tag {
-  padding: 8px 18px;
-  background: var(--white);
-  border: 1px solid var(--gray-light);
-  font-family: 'DM Mono', monospace;
-  font-size: 0.72em;
-  color: var(--gray-dark);
-  letter-spacing: 1px;
-  transition: all 0.2s;
-}
-
-.stack-tag:hover {
-  border-color: var(--accent);
-  color: var(--accent-dark);
-  background: var(--cream);
-}
-
-.stack-categories {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.stack-cat-title {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.68em;
-  color: var(--accent);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-
-/* ── CONTACT ── */
-.contact-section {
-  background: var(--black);
-  padding: 120px 80px;
-  text-align: center;
-}
-
-.contact-section .section-label {
-  justify-content: center;
-}
-
-.contact-section .section-label::after { display: none; }
-.contact-section .section-label::before {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 1px;
-  background: var(--accent);
-}
-
-.contact-section .section-title {
-  color: var(--white);
-  max-width: 600px;
-  margin: 0 auto 20px;
+.contact-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.8em;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: var(--black);
+  line-height: 1.05;
+  margin-bottom: 20px;
 }
 
 .contact-sub {
-  color: #666;
-  font-size: 0.95em;
-  margin-bottom: 48px;
+  font-size: 0.9em;
+  color: var(--text-muted);
+  line-height: 1.7;
   font-weight: 300;
+  margin-bottom: 40px;
+  max-width: 400px;
 }
 
-.contact-links {
+.contact-btns {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.contact-link {
-  display: inline-flex;
-  align-items: center;
   gap: 10px;
-  padding: 14px 28px;
-  border: 1px solid #333;
-  color: #888;
-  font-size: 0.82em;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-family: 'DM Mono', monospace;
-  transition: all 0.2s;
 }
 
-.contact-link:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-/* ── FOOTER ── */
+/* FOOTER */
 footer {
-  background: #080808;
-  padding: 28px 80px;
+  border-top: 1px solid var(--border);
+  padding: 24px 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #1a1a1a;
 }
 
-.footer-copy {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.7em;
-  color: #444;
-  letter-spacing: 1px;
+.foot-txt {
+  font-size: 0.75em;
+  color: var(--text-muted);
+  font-weight: 400;
 }
 
-.footer-loc {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.7em;
-  color: #444;
-  letter-spacing: 1px;
-}
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
+/* ANIMATIONS */
+@keyframes up {
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-/* ── RESPONSIVE ── */
+/* RESPONSIVE */
 @media (max-width: 900px) {
-  nav { padding: 16px 24px; }
-  .nav-links { gap: 24px; }
-  .hero { grid-template-columns: 1fr; }
-  .hero-right { display: none; }
-  .hero-left { padding: 120px 40px 80px; }
-  .section { padding: 80px 32px; }
-  .about-grid { grid-template-columns: 1fr; gap: 48px; }
-  .work-section { padding: 80px 32px; }
-  .work-grid { grid-template-columns: 1fr; }
-  .stack-section { padding: 80px 32px; }
-  .stack-inner { grid-template-columns: 1fr; gap: 48px; }
-  .contact-section { padding: 80px 32px; }
-  footer { padding: 24px 32px; flex-direction: column; gap: 8px; }
+  nav { padding: 0 24px; }
+  .hero { padding: 120px 24px 80px; }
+  .hero-title { font-size: 3em; letter-spacing: -1.5px; }
+  .hero-row { flex-direction: column; align-items: flex-start; gap: 28px; }
+  .about, .projects, .contact { padding: 80px 24px; grid-template-columns: 1fr; gap: 32px; }
+  .projects-header { grid-template-columns: 1fr; gap: 16px; }
+  .proj-item { grid-template-columns: 1fr; gap: 10px; }
+  .proj-num, .proj-arrow { display: none; }
+  .proj-tag { align-self: flex-start; }
+  footer { padding: 20px 24px; }
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">AB</a>
+  <a href="#" class="nav-name">Abasalt Bahrami</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#stack">Stack</a></li>
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-left">
-    <div class="hero-tag">PhD · Physics · UCLA Health</div>
-    <h1 class="hero-name">
-      Abasalt<br>
-      <span>Bahrami</span>
-    </h1>
+  <div class="hero-label">Hardware Engineer · Neuroengineer · Founder</div>
+  <h1 class="hero-title">Building hardware<br>at the edge of<br><span>what's possible.</span></h1>
+  <div class="hero-row">
     <p class="hero-desc">
-      Hardware engineer building at the edge of neuroscience and biomedical technology. 
-      I take ideas from concept to working instrument — end to end.
+      I design experiments and build the instruments to run them —
+      PCB to firmware to enclosure, end to end.
+      Currently at UCLA Health. Co-founder of QuSpectra.
     </p>
-    <div class="hero-cta">
-      <a href="#work" class="btn-primary">View Projects</a>
-      <a href="#contact" class="btn-secondary">Get in Touch</a>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="hero-photo-frame">
-      <div class="hero-photo-bg"></div>
-      <div class="hero-photo-placeholder">AB</div>
-      <div class="hero-stats">
-        <div class="stat-item">
-          <div class="stat-num">7+</div>
-          <div class="stat-label">Publications</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">4</div>
-          <div class="stat-label">Countries</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">NASA</div>
-          <div class="stat-label">Funded</div>
-        </div>
-      </div>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-dark">View Projects</a>
+      <a href="#contact" class="btn btn-light">Get in Touch</a>
     </div>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section class="section" id="about">
-  <div class="about-grid">
-    <div class="about-text">
-      <div class="section-label">About</div>
-      <h2 class="section-title">Physics-trained.<br>Hardware-obsessed.</h2>
-      <p>
-        I hold a PhD in Physics from Johannes Gutenberg University Mainz and have worked across 
-        <strong>Germany, Japan, Brazil, and the US</strong> — tackling hard problems at the edge 
-        of what's technically possible.
-      </p>
-      <p>
-        I specialize in taking a concept from idea to working instrument. That means designing 
-        the PCB, writing the firmware, building the enclosure, running the experiment, and 
-        processing the data. <strong>All of it, end to end.</strong>
-      </p>
-      <p>
-        Currently at <strong>UCLA Health</strong>, building miniaturized electrophysiology systems 
-        for freely moving animals. Co-founder of <strong>QuSpectra</strong>, a NASA SBIR-funded 
-        startup building miniaturized quantum sensors for label-free molecular detection.
-      </p>
-    </div>
-    <div class="about-cards">
-      <div class="about-card">
-        <div class="about-card-title">Current Role</div>
-        <div class="about-card-text">Neuroengineer at UCLA Health — miniaturized electrophysiology systems for in vivo neural recordings</div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-title">Founder</div>
-        <div class="about-card-text">QuSpectra — NASA SBIR Phase I awarded. Quantum sensing for label-free molecular detection</div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-title">Education</div>
-        <div class="about-card-text">PhD Physics, JGU Mainz · Research Fellow, OIST Japan</div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-title">Recognition</div>
-        <div class="about-card-text">Best Poster — IBMD Research Week Sydney 2023 · JSPS Scholarship Japan 2015</div>
-      </div>
-    </div>
+<section class="about" id="about">
+  <div class="section-label">About</div>
+  <div class="about-content">
+    <h2>The harder the<br>problem, the better.</h2>
+    <p>
+      I'm a physics-trained engineer working at the intersection of
+      <strong>neuroscience, quantum sensing, and biomedical technology</strong>.
+      I take ideas from concept to working instrument — all of it, end to end.
+    </p>
+    <p>
+      Currently at <strong>UCLA Health</strong>, developing miniaturized electrophysiology
+      systems for freely moving animals. Co-founder of <strong>QuSpectra</strong>,
+      a NASA-funded startup building quantum sensors for label-free molecular detection.
+    </p>
+    <p>Drop a message if you want to build something hard.</p>
   </div>
 </section>
 
-<!-- WORK -->
-<section class="work-section" id="work">
-  <div style="max-width:1200px; margin:0 auto;">
-    <div class="section-label">Selected Work</div>
-    <h2 class="section-title" style="color:var(--white)">Projects that<br><em style="font-style:italic; color:var(--accent)">push limits</em></h2>
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="projects-header">
+    <div class="section-label">Projects</div>
+    <h2 class="projects-title">Selected Work</h2>
   </div>
-  <div class="work-grid">
-    <a class="work-card" href="https://github.com/abasalt00/ephys-module" target="_blank">
-      <div class="work-num">01</div>
-      <div class="work-title">Miniaturized Neural Recording System</div>
-      <div class="work-desc">1.07g PCB stack recording 32 channels of neural data + IMU + NanEye camera for freely moving mice. Designed every layer: PCB, firmware, mechanical integration.</div>
-      <span class="work-tag">Neuroengineering</span>
-    </a>
-    <a class="work-card" href="https://github.com/abasalt00/NV-quantum-sensor" target="_blank">
-      <div class="work-num">02</div>
-      <div class="work-title">QuSpectra Quantum Sensor</div>
-      <div class="work-desc">50g miniaturized quantum sensor for label-free molecular detection. NASA SBIR Phase I funded. Detects signals from samples too small for most instruments.</div>
-      <span class="work-tag">Deep Tech · NASA</span>
-    </a>
-    <a class="work-card" href="https://github.com/abasalt00/ECG-recording" target="_blank">
-      <div class="work-num">03</div>
-      <div class="work-title">ECG Recording Platform</div>
-      <div class="work-desc">Custom hardware and software for research-grade cardiac signal acquisition with real-time processing pipeline.</div>
-      <span class="work-tag">Biomedical Hardware</span>
-    </a>
-    <a class="work-card" href="https://github.com/abasalt00/job-platform" target="_blank">
-      <div class="work-num">04</div>
-      <div class="work-title">Job Platform</div>
-      <div class="work-desc">Next-generation career platform rethinking how engineers and researchers find opportunities. Full-stack web application.</div>
-      <span class="work-tag">In Development</span>
-    </a>
-  </div>
-</section>
+  <div class="proj-list">
 
-<!-- STACK -->
-<section class="stack-section" id="stack">
-  <div class="stack-inner">
-    <div>
-      <div class="section-label">Expertise</div>
-      <h2 class="section-title">Hardware<br>to Software</h2>
-    </div>
-    <div class="stack-categories">
-      <div>
-        <div class="stack-cat-title">Hardware — A to Z</div>
-        <div class="stack-list">
-          <span class="stack-tag">PCB Design</span>
-          <span class="stack-tag">KiCad</span>
-          <span class="stack-tag">CAD</span>
-          <span class="stack-tag">Autodesk</span>
-          <span class="stack-tag">6-Layer Boards</span>
-          <span class="stack-tag">Signal Integrity</span>
-          <span class="stack-tag">Impedance Matching</span>
-          <span class="stack-tag">Embedded Systems</span>
-          <span class="stack-tag">Optical Systems</span>
-          <span class="stack-tag">Cryogenic Setups</span>
-          <span class="stack-tag">Fabrication</span>
-          <span class="stack-tag">Prototyping</span>
-        </div>
+    <a class="proj-item" href="https://github.com/abasalt00/ephys-module" target="_blank">
+      <div class="proj-num">01</div>
+      <div class="proj-center">
+        <div class="proj-name">Miniaturized Neural Recording System</div>
+        <div class="proj-desc">1.07g PCB stack — 32-channel ephys, IMU, and NanEye camera for freely moving mice.</div>
       </div>
-      <div>
-        <div class="stack-cat-title">Software & Science</div>
-        <div class="stack-list">
-          <span class="stack-tag">Python</span>
-          <span class="stack-tag">C</span>
-          <span class="stack-tag">C++</span>
-          <span class="stack-tag">Prolog</span>
-          <span class="stack-tag">Signal Processing</span>
-          <span class="stack-tag">Neural Interfaces</span>
-          <span class="stack-tag">Electrophysiology</span>
-          <span class="stack-tag">Full-Stack Web</span>
-          <span class="stack-tag">BCI Systems</span>
-        </div>
+      <span class="proj-tag">Neuroengineering</span>
+      <span class="proj-arrow">↗</span>
+    </a>
+
+    <a class="proj-item" href="https://github.com/abasalt00/NV-quantum-sensor" target="_blank">
+      <div class="proj-num">02</div>
+      <div class="proj-center">
+        <div class="proj-name">QuSpectra Quantum Sensor</div>
+        <div class="proj-desc">50g miniaturized quantum sensor for label-free molecular detection. NASA SBIR Phase I funded.</div>
       </div>
-    </div>
+      <span class="proj-tag">Deep Tech</span>
+      <span class="proj-arrow">↗</span>
+    </a>
+
+    <a class="proj-item" href="https://github.com/abasalt00/ECG-recording" target="_blank">
+      <div class="proj-num">03</div>
+      <div class="proj-center">
+        <div class="proj-name">ECG Recording Platform</div>
+        <div class="proj-desc">Custom hardware and software for research-grade cardiac signal acquisition with real-time processing.</div>
+      </div>
+      <span class="proj-tag">Biomedical</span>
+      <span class="proj-arrow">↗</span>
+    </a>
+
+    <a class="proj-item" href="https://github.com/abasalt00/job-platform" target="_blank">
+      <div class="proj-num">04</div>
+      <div class="proj-center">
+        <div class="proj-name">Job Platform</div>
+        <div class="proj-desc">Next-generation career platform rethinking how engineers and researchers find opportunities.</div>
+      </div>
+      <span class="proj-tag">In Development</span>
+      <span class="proj-arrow">↗</span>
+    </a>
+
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="contact-section" id="contact">
+<section class="contact" id="contact">
   <div class="section-label">Contact</div>
-  <h2 class="section-title">Want to build<br>something hard?</h2>
-  <p class="contact-sub">Drop a message — the harder the problem, the better.</p>
-  <div class="contact-links">
-    <a href="https://github.com/abasalt00" target="_blank" class="contact-link">↗ GitHub</a>
-    <a href="https://linkedin.com/in/abasalt-bahrami" target="_blank" class="contact-link">↗ LinkedIn</a>
+  <div>
+    <h2 class="contact-title">Let's build<br>something<br>hard.</h2>
+    <p class="contact-sub">The harder the problem, the better. Reach out via GitHub or LinkedIn.</p>
+    <div class="contact-btns">
+      <a href="https://github.com/abasalt00" target="_blank" class="btn btn-dark">GitHub</a>
+      <a href="https://linkedin.com/in/abasalt-bahrami" target="_blank" class="btn btn-light">LinkedIn</a>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <span class="footer-copy">© 2026 Abasalt Bahrami, PhD</span>
-  <span class="footer-loc">Los Angeles, CA · UCLA Health</span>
+  <span class="foot-txt">© 2026 Abasalt Bahrami</span>
+  <span class="foot-txt">Los Angeles, CA</span>
 </footer>
 
 </body>
