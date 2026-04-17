@@ -3,371 +3,249 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abasalt Bahrami — Hardware Engineer · Neuroengineer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Adi — Hardware Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --black: #0a0a0a;
+  --bg: #f7f5f0;
+  --black: #0e0e0c;
+  --blue: #2147d4;
+  --blue-light: #edf0fc;
+  --muted: #888680;
+  --border: #dedad3;
   --white: #ffffff;
-  --off-white: #f9f9f7;
-  --border: #e8e8e4;
-  --text-muted: #888884;
-  --text-secondary: #444440;
-  --accent: #0a0a0a;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background: var(--white);
+  font-family: 'Bricolage Grotesque', sans-serif;
+  background: var(--bg);
   color: var(--black);
   -webkit-font-smoothing: antialiased;
 }
 
-/* NAV */
+/* ─── NAV ─── */
 nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.9em;
-  font-weight: 600;
-  color: var(--black);
-  text-decoration: none;
-  letter-spacing: -0.2px;
-}
-
-.nav-links {
-  display: flex;
-  gap: 36px;
-  list-style: none;
-}
-
-.nav-links a {
-  font-size: 0.8em;
-  color: var(--text-muted);
-  text-decoration: none;
-  font-weight: 400;
-  transition: color 0.15s;
-  letter-spacing: 0.1px;
-}
-
-.nav-links a:hover { color: var(--black); }
-
-/* HERO */
-.hero {
-  padding: 160px 60px 100px;
-  max-width: 1200px;
-  margin: 0 auto;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  background: rgba(247,245,240,0.88);
+  backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
 }
 
-.hero-label {
-  font-size: 0.75em;
-  font-weight: 500;
-  color: var(--text-muted);
+.nav-logo {
+  font-weight: 800; font-size: 1em;
+  color: var(--black); text-decoration: none;
+  letter-spacing: -0.5px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.nav-pill {
+  font-size: 0.65em; font-weight: 600;
+  background: var(--blue); color: #fff;
+  padding: 3px 9px; border-radius: 100px;
   letter-spacing: 0.5px;
-  margin-bottom: 36px;
-  opacity: 0;
-  animation: up 0.6s 0.1s ease forwards;
 }
 
-.hero-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(3em, 5.5vw, 5.5em);
+nav ul { list-style: none; display: flex; gap: 8px; }
+nav a {
+  font-size: 0.82em; font-weight: 500; color: var(--muted);
+  text-decoration: none; padding: 6px 14px;
+  border-radius: 100px; transition: all 0.15s;
+}
+nav a:hover { color: var(--black); background: rgba(0,0,0,0.05); }
+
+/* ─── SPLIT HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 56px;
+}
+
+.hero-left {
+  background: var(--black);
+  padding: 80px 56px;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; overflow: hidden;
+}
+
+.hero-left::after {
+  content: '';
+  position: absolute;
+  bottom: -120px; left: -120px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(33,71,212,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-tag {
+  font-size: 0.72em; font-weight: 600;
+  color: var(--blue); letter-spacing: 1.5px;
+  text-transform: uppercase; margin-bottom: 28px;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.hero-tag::before {
+  content: '';
+  display: block; width: 20px; height: 2px;
+  background: var(--blue);
+}
+
+h1 {
+  font-size: clamp(2.8em, 4vw, 4em);
   font-weight: 800;
-  line-height: 1.0;
-  letter-spacing: -2.5px;
-  color: var(--black);
-  max-width: 820px;
-  margin-bottom: 48px;
-  opacity: 0;
-  animation: up 0.6s 0.2s ease forwards;
+  color: #fff;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 32px;
 }
 
-.hero-title span {
-  color: var(--text-muted);
-  font-weight: 400;
-  font-style: italic;
-  font-family: 'Inter', sans-serif;
-  letter-spacing: -1px;
-  font-size: 0.92em;
-}
-
-.hero-row {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 60px;
-  opacity: 0;
-  animation: up 0.6s 0.35s ease forwards;
+h1 em {
+  font-style: normal;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.35);
 }
 
 .hero-desc {
-  max-width: 440px;
-  font-size: 1em;
-  color: var(--text-secondary);
-  line-height: 1.75;
-  font-weight: 300;
+  font-size: 0.95em; color: #666;
+  line-height: 1.75; font-weight: 300;
+  max-width: 380px; margin-bottom: 40px;
 }
 
-.hero-actions {
-  display: flex;
-  gap: 12px;
-  flex-shrink: 0;
+.hero-desc strong { color: #999; font-weight: 600; }
+
+.hero-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue); color: #fff;
+  padding: 12px 24px; border-radius: 8px;
+  font-size: 0.85em; font-weight: 600;
+  text-decoration: none; transition: all 0.15s;
+  align-self: flex-start;
 }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 11px 22px;
-  font-size: 0.8em;
-  font-weight: 500;
-  text-decoration: none;
-  border-radius: 6px;
-  transition: all 0.15s;
-  letter-spacing: 0.1px;
-  white-space: nowrap;
+.hero-btn:hover { background: #1a3bbb; transform: translateY(-1px); }
+
+.hero-right {
+  background: var(--bg);
+  padding: 80px 56px;
+  display: flex; flex-direction: column; justify-content: center;
+  gap: 28px;
+  border-left: 1px solid var(--border);
 }
 
-.btn-dark {
-  background: var(--black);
-  color: var(--white);
+.side-label {
+  font-size: 0.68em; font-weight: 700;
+  color: var(--muted); letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
-.btn-dark:hover { background: #222; }
-
-.btn-light {
-  background: var(--off-white);
-  color: var(--black);
-  border: 1px solid var(--border);
+.side-block {
+  display: flex; flex-direction: column; gap: 6px;
+  padding-left: 18px;
+  border-left: 2px solid var(--border);
+  transition: border-color 0.2s;
 }
 
-.btn-light:hover { background: #f0f0ec; }
+.side-block:hover { border-color: var(--blue); }
 
-/* ABOUT */
-.about {
-  padding: 100px 60px;
-  max-width: 1200px;
-  margin: 0 auto;
+.side-title {
+  font-size: 0.98em; font-weight: 700;
+  color: var(--black); letter-spacing: -0.3px;
+}
+
+.side-desc {
+  font-size: 0.8em; color: var(--muted);
+  line-height: 1.55; font-weight: 400;
+}
+
+.side-tag {
+  display: inline-block; margin-top: 4px;
+  font-size: 0.68em; font-weight: 600;
+  color: var(--blue); background: var(--blue-light);
+  padding: 3px 10px; border-radius: 100px;
+  letter-spacing: 0.3px; align-self: flex-start;
+}
+
+/* ─── ABOUT + CONTACT ─── */
+.bottom {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 80px;
-  border-bottom: 1px solid var(--border);
-  align-items: start;
-}
-
-.section-label {
-  font-size: 0.72em;
-  font-weight: 500;
-  color: var(--text-muted);
-  letter-spacing: 0.3px;
-  padding-top: 4px;
-}
-
-.about-content h2 {
-  font-family: 'Syne', sans-serif;
-  font-size: 2em;
-  font-weight: 700;
-  letter-spacing: -0.8px;
-  color: var(--black);
-  line-height: 1.2;
-  margin-bottom: 28px;
-}
-
-.about-content p {
-  font-size: 0.95em;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  font-weight: 300;
-  margin-bottom: 18px;
-  max-width: 620px;
-}
-
-.about-content p:last-child { margin-bottom: 0; }
-
-.about-content strong {
-  color: var(--black);
-  font-weight: 500;
-}
-
-/* PROJECTS */
-.projects {
-  padding: 100px 60px;
-  max-width: 1200px;
-  margin: 0 auto;
-  border-bottom: 1px solid var(--border);
-}
-
-.projects-header {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 80px;
-  margin-bottom: 60px;
-  align-items: baseline;
-}
-
-.projects-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 2em;
-  font-weight: 700;
-  letter-spacing: -0.8px;
-  color: var(--black);
-}
-
-.proj-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.proj-item {
-  display: grid;
-  grid-template-columns: 280px 1fr auto;
-  gap: 80px;
-  align-items: center;
-  padding: 36px 0;
+  grid-template-columns: 1fr 1fr;
   border-top: 1px solid var(--border);
-  text-decoration: none;
-  transition: background 0.15s;
-  cursor: pointer;
 }
 
-.proj-item:last-child { border-bottom: 1px solid var(--border); }
-
-.proj-item:hover .proj-name { color: var(--text-muted); }
-
-.proj-num {
-  font-size: 0.72em;
-  color: var(--text-muted);
-  font-weight: 400;
-  letter-spacing: 0.3px;
+.panel {
+  padding: 72px 56px;
+  border-right: 1px solid var(--border);
 }
 
-.proj-center { min-width: 0; }
+.panel:last-child { border-right: none; }
 
-.proj-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.15em;
-  font-weight: 600;
-  color: var(--black);
-  letter-spacing: -0.3px;
-  margin-bottom: 6px;
-  transition: color 0.15s;
+.panel-label {
+  font-size: 0.68em; font-weight: 700;
+  color: var(--blue); letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 20px;
 }
 
-.proj-desc {
-  font-size: 0.82em;
-  color: var(--text-muted);
-  line-height: 1.6;
-  font-weight: 300;
+.panel h2 {
+  font-size: 1.5em; font-weight: 800;
+  letter-spacing: -0.8px; color: var(--black);
+  margin-bottom: 18px; line-height: 1.15;
 }
 
-.proj-tag {
-  font-size: 0.72em;
-  color: var(--text-muted);
-  font-weight: 400;
-  white-space: nowrap;
-  padding: 5px 12px;
+.panel p {
+  font-size: 0.9em; color: var(--muted);
+  line-height: 1.75; font-weight: 400;
+}
+
+.panel p strong { color: var(--black); font-weight: 600; }
+
+.contact-links {
+  display: flex; flex-direction: column; gap: 10px;
+  margin-top: 4px;
+}
+
+.clink {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 100px;
-  letter-spacing: 0.1px;
-}
-
-.proj-arrow {
-  font-size: 1em;
-  color: var(--border);
-  margin-left: 20px;
+  border-radius: 10px;
+  text-decoration: none;
   transition: all 0.15s;
-  flex-shrink: 0;
 }
 
-.proj-item:hover .proj-arrow {
-  color: var(--black);
-  transform: translate(2px, -2px);
+.clink:hover {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-light);
+  transform: translateX(3px);
 }
 
-/* CONTACT */
-.contact {
-  padding: 120px 60px;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 80px;
-  align-items: center;
-}
+.clink-left { display: flex; flex-direction: column; gap: 2px; }
+.clink-name { font-size: 0.88em; font-weight: 700; color: var(--black); }
+.clink-handle { font-size: 0.72em; color: var(--muted); font-weight: 400; }
+.clink-arrow { font-size: 0.9em; color: #ccc; transition: all 0.15s; }
+.clink:hover .clink-arrow { color: var(--blue); }
 
-.contact-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 2.8em;
-  font-weight: 800;
-  letter-spacing: -1.5px;
-  color: var(--black);
-  line-height: 1.05;
-  margin-bottom: 20px;
-}
-
-.contact-sub {
-  font-size: 0.9em;
-  color: var(--text-muted);
-  line-height: 1.7;
-  font-weight: 300;
-  margin-bottom: 40px;
-  max-width: 400px;
-}
-
-.contact-btns {
-  display: flex;
-  gap: 10px;
-}
-
-/* FOOTER */
+/* ─── FOOTER ─── */
 footer {
   border-top: 1px solid var(--border);
-  padding: 24px 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 20px 48px;
+  display: flex; justify-content: space-between;
 }
+.foot { font-size: 0.72em; color: #bbb; }
 
-.foot-txt {
-  font-size: 0.75em;
-  color: var(--text-muted);
-  font-weight: 400;
-}
-
-/* ANIMATIONS */
-@keyframes up {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  nav { padding: 0 24px; }
-  .hero { padding: 120px 24px 80px; }
-  .hero-title { font-size: 3em; letter-spacing: -1.5px; }
-  .hero-row { flex-direction: column; align-items: flex-start; gap: 28px; }
-  .about, .projects, .contact { padding: 80px 24px; grid-template-columns: 1fr; gap: 32px; }
-  .projects-header { grid-template-columns: 1fr; gap: 16px; }
-  .proj-item { grid-template-columns: 1fr; gap: 10px; }
-  .proj-num, .proj-arrow { display: none; }
-  .proj-tag { align-self: flex-start; }
+/* ─── RESPONSIVE ─── */
+@media (max-width: 780px) {
+  nav { padding: 0 20px; }
+  .hero, .bottom { grid-template-columns: 1fr; }
+  .hero-left, .hero-right, .panel { padding: 56px 24px; }
+  .hero { min-height: auto; }
+  .panel { border-right: none; border-bottom: 1px solid var(--border); }
   footer { padding: 20px 24px; }
 }
 </style>
@@ -375,117 +253,90 @@ footer {
 <body>
 
 <nav>
-  <a href="#" class="nav-name">Abasalt Bahrami</a>
-  <ul class="nav-links">
+  <a href="#" class="nav-logo">
+    Adi
+    <span class="nav-pill">UCLA Health</span>
+  </a>
+  <ul>
     <li><a href="#about">About</a></li>
-    <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-label">Hardware Engineer · Neuroengineer · Founder</div>
-  <h1 class="hero-title">Building hardware<br>at the edge of<br><span>what's possible.</span></h1>
-  <div class="hero-row">
+<!-- SPLIT HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Hardware Engineer · Neuroengineer</div>
+    <h1>Building<br>at the <em>edge</em><br>of possible.</h1>
     <p class="hero-desc">
       I design experiments and build the instruments to run them —
-      PCB to firmware to enclosure, end to end.
-      Currently at UCLA Health. Co-founder of QuSpectra.
+      <strong>PCB to firmware to enclosure</strong>, end to end.
+      The harder the problem, the better.
     </p>
-    <div class="hero-actions">
-      <a href="#projects" class="btn btn-dark">View Projects</a>
-      <a href="#contact" class="btn btn-light">Get in Touch</a>
+    <a href="#contact" class="hero-btn">Get in Touch ↗</a>
+  </div>
+
+  <div class="hero-right">
+    <div class="side-label">Current Work</div>
+
+    <div class="side-block">
+      <div class="side-title">Miniaturized Neural Recording</div>
+      <div class="side-desc">1.07g PCB stack — 32-channel ephys, IMU, and NanEye camera for freely moving mice.</div>
+      <span class="side-tag">Neuroengineering</span>
+    </div>
+
+    <div class="side-block">
+      <div class="side-title">ECG Recording Platform</div>
+      <div class="side-desc">Custom hardware and software for research-grade cardiac signal acquisition.</div>
+      <span class="side-tag">Biomedical</span>
+    </div>
+
+    <div class="side-block">
+      <div class="side-title">Job Platform</div>
+      <div class="side-desc">Next-generation career platform for engineers and researchers.</div>
+      <span class="side-tag">In Development</span>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ABOUT -->
-<section class="about" id="about">
-  <div class="section-label">About</div>
-  <div class="about-content">
-    <h2>The harder the<br>problem, the better.</h2>
+<!-- ABOUT + CONTACT -->
+<div class="bottom">
+  <div class="panel" id="about">
+    <div class="panel-label">About</div>
+    <h2>The harder the problem, the better.</h2>
     <p>
       I'm a physics-trained engineer working at the intersection of
-      <strong>neuroscience, quantum sensing, and biomedical technology</strong>.
+      <strong>neuroscience and biomedical technology</strong>.
       I take ideas from concept to working instrument — all of it, end to end.
+      Currently at <strong>UCLA Health</strong>.
     </p>
-    <p>
-      Currently at <strong>UCLA Health</strong>, developing miniaturized electrophysiology
-      systems for freely moving animals. Co-founder of <strong>QuSpectra</strong>,
-      a NASA-funded startup building quantum sensors for label-free molecular detection.
-    </p>
-    <p>Drop a message if you want to build something hard.</p>
   </div>
-</section>
 
-<!-- PROJECTS -->
-<section class="projects" id="projects">
-  <div class="projects-header">
-    <div class="section-label">Projects</div>
-    <h2 class="projects-title">Selected Work</h2>
-  </div>
-  <div class="proj-list">
-
-    <a class="proj-item" href="https://github.com/abasalt00/ephys-module" target="_blank">
-      <div class="proj-num">01</div>
-      <div class="proj-center">
-        <div class="proj-name">Miniaturized Neural Recording System</div>
-        <div class="proj-desc">1.07g PCB stack — 32-channel ephys, IMU, and NanEye camera for freely moving mice.</div>
-      </div>
-      <span class="proj-tag">Neuroengineering</span>
-      <span class="proj-arrow">↗</span>
-    </a>
-
-    <a class="proj-item" href="https://github.com/abasalt00/NV-quantum-sensor" target="_blank">
-      <div class="proj-num">02</div>
-      <div class="proj-center">
-        <div class="proj-name">QuSpectra Quantum Sensor</div>
-        <div class="proj-desc">50g miniaturized quantum sensor for label-free molecular detection. NASA SBIR Phase I funded.</div>
-      </div>
-      <span class="proj-tag">Deep Tech</span>
-      <span class="proj-arrow">↗</span>
-    </a>
-
-    <a class="proj-item" href="https://github.com/abasalt00/ECG-recording" target="_blank">
-      <div class="proj-num">03</div>
-      <div class="proj-center">
-        <div class="proj-name">ECG Recording Platform</div>
-        <div class="proj-desc">Custom hardware and software for research-grade cardiac signal acquisition with real-time processing.</div>
-      </div>
-      <span class="proj-tag">Biomedical</span>
-      <span class="proj-arrow">↗</span>
-    </a>
-
-    <a class="proj-item" href="https://github.com/abasalt00/job-platform" target="_blank">
-      <div class="proj-num">04</div>
-      <div class="proj-center">
-        <div class="proj-name">Job Platform</div>
-        <div class="proj-desc">Next-generation career platform rethinking how engineers and researchers find opportunities.</div>
-      </div>
-      <span class="proj-tag">In Development</span>
-      <span class="proj-arrow">↗</span>
-    </a>
-
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <div class="section-label">Contact</div>
-  <div>
-    <h2 class="contact-title">Let's build<br>something<br>hard.</h2>
-    <p class="contact-sub">The harder the problem, the better. Reach out via GitHub or LinkedIn.</p>
-    <div class="contact-btns">
-      <a href="https://github.com/abasalt00" target="_blank" class="btn btn-dark">GitHub</a>
-      <a href="https://linkedin.com/in/abasalt-bahrami" target="_blank" class="btn btn-light">LinkedIn</a>
+  <div class="panel" id="contact">
+    <div class="panel-label">Contact</div>
+    <h2>Let's build something.</h2>
+    <div class="contact-links">
+      <a class="clink" href="https://github.com/abasalt00" target="_blank">
+        <div class="clink-left">
+          <span class="clink-name">GitHub</span>
+          <span class="clink-handle">@abasalt00</span>
+        </div>
+        <span class="clink-arrow">↗</span>
+      </a>
+      <a class="clink" href="https://linkedin.com/in/abasalt-bahrami" target="_blank">
+        <div class="clink-left">
+          <span class="clink-name">LinkedIn</span>
+          <span class="clink-handle">Abasalt Bahrami</span>
+        </div>
+        <span class="clink-arrow">↗</span>
+      </a>
     </div>
   </div>
-</section>
+</div>
 
 <footer>
-  <span class="foot-txt">© 2026 Abasalt Bahrami</span>
-  <span class="foot-txt">Los Angeles, CA</span>
+  <span class="foot">© 2026 Adi</span>
+  <span class="foot">Los Angeles, CA</span>
 </footer>
 
 </body>
