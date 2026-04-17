@@ -6,336 +6,176 @@
 <title>Adi — Hardware Engineer</title>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #f7f5f0;
-  --black: #0e0e0c;
-  --blue: #2147d4;
-  --blue-light: #edf0fc;
-  --muted: #888680;
-  --border: #dedad3;
-  --white: #ffffff;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-
 body {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  background: var(--bg);
-  color: var(--black);
-  -webkit-font-smoothing: antialiased;
+  background: #0e0e0c;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── GLOW ─── */
+.glow {
+  position: fixed;
+  bottom: -180px; left: -180px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(33,71,212,0.22) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 /* ─── NAV ─── */
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  height: 56px;
+  padding: 0 56px;
+  height: 58px;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 48px;
-  background: rgba(247,245,240,0.88);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
 }
 
 .nav-logo {
   font-weight: 800; font-size: 1em;
-  color: var(--black); text-decoration: none;
+  color: #fff; text-decoration: none;
   letter-spacing: -0.5px;
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; gap: 10px;
 }
 
 .nav-pill {
-  font-size: 0.65em; font-weight: 600;
-  background: var(--blue); color: #fff;
-  padding: 3px 9px; border-radius: 100px;
+  font-size: 0.62em; font-weight: 600;
+  background: #2147d4; color: #fff;
+  padding: 3px 10px; border-radius: 100px;
   letter-spacing: 0.5px;
 }
 
-nav ul { list-style: none; display: flex; gap: 8px; }
+nav ul { list-style: none; display: flex; gap: 6px; }
+
 nav a {
-  font-size: 0.82em; font-weight: 500; color: var(--muted);
-  text-decoration: none; padding: 6px 14px;
-  border-radius: 100px; transition: all 0.15s;
-}
-nav a:hover { color: var(--black); background: rgba(0,0,0,0.05); }
-
-/* ─── SPLIT HERO ─── */
-.hero {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding-top: 56px;
+  font-size: 0.8em; font-weight: 500;
+  color: #555; text-decoration: none;
+  padding: 6px 14px; border-radius: 100px;
+  transition: all 0.15s;
 }
 
-.hero-left {
-  background: var(--black);
-  padding: 80px 56px;
-  display: flex; flex-direction: column; justify-content: center;
-  position: relative; overflow: hidden;
+nav a:hover { color: #fff; background: rgba(255,255,255,0.07); }
+
+/* ─── MAIN ─── */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 56px;
+  position: relative;
 }
 
-.hero-left::after {
-  content: '';
-  position: absolute;
-  bottom: -120px; left: -120px;
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(33,71,212,0.25) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.hero-tag {
+.tag {
   font-size: 0.72em; font-weight: 600;
-  color: var(--blue); letter-spacing: 1.5px;
+  color: #2147d4; letter-spacing: 1.5px;
   text-transform: uppercase; margin-bottom: 28px;
   display: flex; align-items: center; gap: 10px;
 }
 
-.hero-tag::before {
+.tag::before {
   content: '';
   display: block; width: 20px; height: 2px;
-  background: var(--blue);
+  background: #2147d4;
 }
 
 h1 {
-  font-size: clamp(2.8em, 4vw, 4em);
+  font-size: clamp(3.5em, 6vw, 6em);
   font-weight: 800;
   color: #fff;
-  line-height: 1.05;
-  letter-spacing: -2px;
+  line-height: 1.0;
+  letter-spacing: -3px;
   margin-bottom: 32px;
+  max-width: 780px;
 }
 
 h1 em {
   font-style: normal;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255,255,255,0.35);
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.3);
 }
 
-.hero-desc {
-  font-size: 0.95em; color: #666;
+.desc {
+  font-size: 1em; color: #555;
   line-height: 1.75; font-weight: 300;
-  max-width: 380px; margin-bottom: 40px;
+  max-width: 440px; margin-bottom: 44px;
 }
 
-.hero-desc strong { color: #999; font-weight: 600; }
+.desc strong { color: #888; font-weight: 600; }
 
-.hero-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--blue); color: #fff;
-  padding: 12px 24px; border-radius: 8px;
+.btns { display: flex; gap: 10px; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 11px 22px; border-radius: 8px;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 0.85em; font-weight: 600;
   text-decoration: none; transition: all 0.15s;
-  align-self: flex-start;
 }
 
-.hero-btn:hover { background: #1a3bbb; transform: translateY(-1px); }
+.btn-blue { background: #2147d4; color: #fff; }
+.btn-blue:hover { background: #1a3bbb; transform: translateY(-1px); }
 
-.hero-right {
-  background: var(--bg);
-  padding: 80px 56px;
-  display: flex; flex-direction: column; justify-content: center;
-  gap: 28px;
-  border-left: 1px solid var(--border);
+.btn-ghost {
+  background: rgba(255,255,255,0.05);
+  color: #888; border: 1px solid rgba(255,255,255,0.08);
 }
-
-.side-label {
-  font-size: 0.68em; font-weight: 700;
-  color: var(--muted); letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.side-block {
-  display: flex; flex-direction: column; gap: 6px;
-  padding-left: 18px;
-  border-left: 2px solid var(--border);
-  transition: border-color 0.2s;
-}
-
-.side-block:hover { border-color: var(--blue); }
-
-.side-title {
-  font-size: 0.98em; font-weight: 700;
-  color: var(--black); letter-spacing: -0.3px;
-}
-
-.side-desc {
-  font-size: 0.8em; color: var(--muted);
-  line-height: 1.55; font-weight: 400;
-}
-
-.side-tag {
-  display: inline-block; margin-top: 4px;
-  font-size: 0.68em; font-weight: 600;
-  color: var(--blue); background: var(--blue-light);
-  padding: 3px 10px; border-radius: 100px;
-  letter-spacing: 0.3px; align-self: flex-start;
-}
-
-/* ─── ABOUT + CONTACT ─── */
-.bottom {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-top: 1px solid var(--border);
-}
-
-.panel {
-  padding: 72px 56px;
-  border-right: 1px solid var(--border);
-}
-
-.panel:last-child { border-right: none; }
-
-.panel-label {
-  font-size: 0.68em; font-weight: 700;
-  color: var(--blue); letter-spacing: 2px;
-  text-transform: uppercase; margin-bottom: 20px;
-}
-
-.panel h2 {
-  font-size: 1.5em; font-weight: 800;
-  letter-spacing: -0.8px; color: var(--black);
-  margin-bottom: 18px; line-height: 1.15;
-}
-
-.panel p {
-  font-size: 0.9em; color: var(--muted);
-  line-height: 1.75; font-weight: 400;
-}
-
-.panel p strong { color: var(--black); font-weight: 600; }
-
-.contact-links {
-  display: flex; flex-direction: column; gap: 10px;
-  margin-top: 4px;
-}
-
-.clink {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 18px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  text-decoration: none;
-  transition: all 0.15s;
-}
-
-.clink:hover {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 3px var(--blue-light);
-  transform: translateX(3px);
-}
-
-.clink-left { display: flex; flex-direction: column; gap: 2px; }
-.clink-name { font-size: 0.88em; font-weight: 700; color: var(--black); }
-.clink-handle { font-size: 0.72em; color: var(--muted); font-weight: 400; }
-.clink-arrow { font-size: 0.9em; color: #ccc; transition: all 0.15s; }
-.clink:hover .clink-arrow { color: var(--blue); }
+.btn-ghost:hover { background: rgba(255,255,255,0.09); color: #ccc; }
 
 /* ─── FOOTER ─── */
 footer {
-  border-top: 1px solid var(--border);
-  padding: 20px 48px;
-  display: flex; justify-content: space-between;
+  padding: 0 56px;
+  height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
 }
-.foot { font-size: 0.72em; color: #bbb; }
 
-/* ─── RESPONSIVE ─── */
-@media (max-width: 780px) {
-  nav { padding: 0 20px; }
-  .hero, .bottom { grid-template-columns: 1fr; }
-  .hero-left, .hero-right, .panel { padding: 56px 24px; }
-  .hero { min-height: auto; }
-  .panel { border-right: none; border-bottom: 1px solid var(--border); }
-  footer { padding: 20px 24px; }
-}
+.foot { font-size: 0.72em; color: #333; }
 </style>
 </head>
 <body>
 
+<div class="glow"></div>
+
 <nav>
   <a href="#" class="nav-logo">
-    Adi
-    <span class="nav-pill">UCLA Health</span>
+    Abasalt Bahrami
+    <span class="nav-pill">Techie · Entrepreneur</span>
   </a>
   <ul>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="mailto:">Contact</a></li>
+    <li><a href="https://github.com/abasalt00" target="_blank">GitHub</a></li>
+    <li><a href="https://linkedin.com/in/abasalt-bahrami" target="_blank">LinkedIn</a></li>
   </ul>
 </nav>
 
-<!-- SPLIT HERO -->
-<div class="hero">
-  <div class="hero-left">
-    <div class="hero-tag">Hardware Engineer · Neuroengineer</div>
-    <h1>Building<br>at the <em>edge</em><br>of possible.</h1>
-    <p class="hero-desc">
-      I design experiments and build the instruments to run them —
-      <strong>PCB to firmware to enclosure</strong>, end to end.
-      The harder the problem, the better.
-    </p>
-    <a href="#contact" class="hero-btn">Get in Touch ↗</a>
+<main>
+  <div class="tag">Techie · Entrepreneur</div>
+  <h1>Building<br>at the <em>edge</em><br>of impossible.</h1>
+  <p class="desc">
+    Physics-trained techie building biotech.
+    I design complex experiments and turn science into
+    <strong>real-world solutions</strong> —
+    the harder the problem, the better.
+  </p>
+  <div class="btns">
+    <a href="https://linkedin.com/in/abasalt-bahrami" target="_blank" class="btn btn-blue">Get in Touch ↗</a>
+    <a href="https://github.com/abasalt00" target="_blank" class="btn btn-ghost">GitHub ↗</a>
   </div>
-
-  <div class="hero-right">
-    <div class="side-label">Current Work</div>
-
-    <div class="side-block">
-      <div class="side-title">Miniaturized Neural Recording</div>
-      <div class="side-desc">1.07g PCB stack — 32-channel ephys, IMU, and NanEye camera for freely moving mice.</div>
-      <span class="side-tag">Neuroengineering</span>
-    </div>
-
-    <div class="side-block">
-      <div class="side-title">ECG Recording Platform</div>
-      <div class="side-desc">Custom hardware and software for research-grade cardiac signal acquisition.</div>
-      <span class="side-tag">Biomedical</span>
-    </div>
-
-    <div class="side-block">
-      <div class="side-title">Job Platform</div>
-      <div class="side-desc">Next-generation career platform for engineers and researchers.</div>
-      <span class="side-tag">In Development</span>
-    </div>
-  </div>
-</div>
-
-<!-- ABOUT + CONTACT -->
-<div class="bottom">
-  <div class="panel" id="about">
-    <div class="panel-label">About</div>
-    <h2>The harder the problem, the better.</h2>
-    <p>
-      I'm a physics-trained engineer working at the intersection of
-      <strong>neuroscience and biomedical technology</strong>.
-      I take ideas from concept to working instrument — all of it, end to end.
-      Currently at <strong>UCLA Health</strong>.
-    </p>
-  </div>
-
-  <div class="panel" id="contact">
-    <div class="panel-label">Contact</div>
-    <h2>Let's build something.</h2>
-    <div class="contact-links">
-      <a class="clink" href="https://github.com/abasalt00" target="_blank">
-        <div class="clink-left">
-          <span class="clink-name">GitHub</span>
-          <span class="clink-handle">@abasalt00</span>
-        </div>
-        <span class="clink-arrow">↗</span>
-      </a>
-      <a class="clink" href="https://linkedin.com/in/abasalt-bahrami" target="_blank">
-        <div class="clink-left">
-          <span class="clink-name">LinkedIn</span>
-          <span class="clink-handle">Abasalt Bahrami</span>
-        </div>
-        <span class="clink-arrow">↗</span>
-      </a>
-    </div>
-  </div>
-</div>
+</main>
 
 <footer>
-  <span class="foot">© 2026 Adi</span>
+  <span class="foot">© 2026 Abasalt Bahrami</span>
   <span class="foot">Los Angeles, CA</span>
 </footer>
 
